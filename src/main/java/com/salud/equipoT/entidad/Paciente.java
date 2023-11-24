@@ -4,9 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,16 +21,21 @@ public class Paciente {
 
     
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "dni")
     private Long dni;
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "email")
     private String email;
+    @Column(name = "password")
     private String password;
-    @ManyToOne()
-    @JoinColumn(name = "obra_social_id", referencedColumnName = "id")
+    @OneToOne()
+    @Column(name = "obraSocial")
     private ObraSocial obraSocial;
     @OneToOne()
-    private HistoriaClinica historiaClinica;
+    @Column(name = "hitoriaClinica")
+    private HistoriaClinica hitoriaClinica;
     @Enumerated(EnumType.STRING)
     private Rol rol;
 

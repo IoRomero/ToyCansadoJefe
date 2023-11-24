@@ -1,16 +1,8 @@
 package com.salud.equipoT.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.salud.equipoT.entidad.Consulta;
-import com.salud.equipoT.entidad.ObraSocial;
-import com.salud.equipoT.entidad.Paciente;
-import com.salud.equipoT.entidad.Rol;
-import com.salud.equipoT.repository.ObraSocialRepository;
 import com.salud.equipoT.repository.PacienteRepository;
 
 @Service
@@ -18,6 +10,7 @@ public class PacienteService {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+
     @Autowired
     private ObraSocialRepository obraSocialRepository;
 
@@ -73,15 +66,4 @@ public class PacienteService {
 public List<Paciente> listarPacientesObraSocial(ObraSocial obraSocial){
 
 return pacienteRepository.findByObraSocial(obraSocial.getId());
-}
-
-    public void validar(Long id, String nombre, String email, String password) throws Exception{
-
-        if(nombre.isBlank()){
-            throw new Exception("el nombre no puede ser nulo o estar vacio");
-        }
-        if(email.isBlank()){
-            
-        }
-    }
 }

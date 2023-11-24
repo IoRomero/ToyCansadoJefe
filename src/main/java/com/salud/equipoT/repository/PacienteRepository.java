@@ -29,5 +29,8 @@ public interface PacienteRepository extends JpaRepository<Paciente,Long>{
     @Query("UPDATE Paciente P SET P.password = :nuevaPassword WHERE P.id = :id")
     void cambiarPassword(@Param("id") Long dni, @Param("nuevaPassword") String nuevaPassword);
 
+    @Query("UPDATE Paciente P SET P.email = :nuevoEmail WHERE P.id = :id")
+    void cambiarEmail(@Param("id") Long dni, @Param("nuevoEmail") String nuevoEmail);
+
 
 }

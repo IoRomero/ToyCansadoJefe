@@ -40,17 +40,23 @@ public class PacienteService {
         paciente.setPassword(password);
         paciente.setObraSocial(null); 
         paciente.setRol(Rol.PACIENTE);
-}
+    }
 
         
         pacienteRepository.save(paciente);
 
-    }
+}
+    @Transactional
     public void cambiarPassword(Long dni,String nuevaPassword){
     
         pacienteRepository.cambiarPassword(dni, nuevaPassword);
 
     }
+    @Transactional
+    public void cambiarEmail(Long dni,String nuevoEmail){
+        
+    }
+    @Transactional
     public void eliminarPaciente(Paciente paciente){
         pacienteRepository.delete(paciente);
     }

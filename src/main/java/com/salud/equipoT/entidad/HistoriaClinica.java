@@ -1,5 +1,4 @@
 package com.salud.equipoT.entidad;
-
 import java.util.List;
 
 import javax.persistence.Column;

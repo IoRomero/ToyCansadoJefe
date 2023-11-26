@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/src/main/resources/css/index.css" rel="stylesheet">
-  <script src="/src/main/resources/js/carousel.js" defer></script>
+  <script src="/src/main/resources/static/js/carousel.js" defer></script>
+  <link href="/src/main/resources/static/css/index.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,14 +21,15 @@
     <nav class="bg-green-600 p-4">
       <div class="container mx-auto flex items-center justify-between">
         <div class="flex items-center">
-          <a href="/index"><img src="/src/main/resources/Img/logo.png" alt="Logo SaludAPP"
-              class="w-10 h-10 mr-2 cursor-pointer"></a>
+          <img th:src="@{/Img/logo.png}" alt="Logo SaludAPP" class="w-8 h-8 mr-2">
+          <span class="text-white text-lg font-bold">SaludAPP</span>
+        </div>
+        <div class="flex items-center">
           <h3 class="text-white text-2xl font-bold">SaludAPP</h3>
         </div>
         <ul class="flex space-x-4 text-white">
-          <li><a href="/index" class="hover:bg-gray-600 hover:text-white px-4 py-2 rounded">Home</a></li>
-          <li><a href="/pacientes" class="hover:bg-gray-600 px-4 py-2 rounded">Pacientes</a></li>
-          <li><a href="" class="hover:bg-gray-600 px-4 py-2 rounded">Profesionales</a></li>
+          <li><a href="/paciente/registrar" class="hover:bg-gray-600 px-4 py-2 rounded">Crear Pacientes</a></li>
+          <li><a href="" class="hover:bg-gray-600 px-4 py-2 rounded">Especialidades</a></li>
           <li><a href="#contact" class="hover:bg-gray-600 px-4 py-2 rounded">Contacto</a></li>
         </ul>
       </div>
@@ -43,14 +44,14 @@
       <div class="carousel-wrapper" id="carousel-wrapper">
         <div class="carousel-item">
           <img
-            src="/src/main/resources/Img/borrosa-resumen-antecedentes-vista-interior-mirando-fuera-vacio-vestibulo-oficina-puertas-entrada-pared-cortina-vidrio-marco.jpg"
+            th:src="@{/img/borrosa.jpg}"
             alt="Imagen 1">
         </div>
         <div class="carousel-item">
-          <img src="/src/main/resources/Img/doctores-comprobando-radiografia.jpg" alt="Imagen 2">
+          <img th:src="@{/img/doctores-comprobando-radiografia.jpg}" alt="Imagen 2">
         </div>
         <div class="carousel-item">
-          <img src="/src/main/resources/Img/equipo-medicos-especialistas-jovenes-pie-pasillo-hospital.jpg"
+          <img th:src="@{/img/equipo-medicos-especialistas.jpg}"
             alt="Imagen 3">
         </div>
 
@@ -58,18 +59,12 @@
       <button class="carousel-prev" onclick="prevSlide()">&#10094;</button>
       <button class="carousel-next" onclick="nextSlide()">&#10095;</button>
 
-      <div class="text-center text-2xl p-5">
-        <p class="text-center text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente cumque
-          repellendus eaque odit. Corrupti corporis fugiat eligendi facilis optio quas amet sunt temporibus voluptatum.
-          Provident excepturi unde ipsam beatae eaque.</p>
-      </div>
     </div>
 
     <!-- Footer -->
     <footer class="mt-8 mb-0 text-center text-white p-7 bg-green-800  ">
       <p>&copy; 2023 SaludAPP. Todos los derechos reservados.</p>
     </footer>
-
 
 
 

@@ -5,6 +5,10 @@ function nextSlide() {
   currentIndex = (currentIndex + 1) % 3; // Adjust the number based on the number of images
   updateCarousel();
 }
+function prevSlide() {
+  currentIndex = (currentIndex - 1) % 3; // Adjust the number based on the number of images
+  updateCarousel();
+}
 
 function updateCarousel() {
   const translateValue = -currentIndex * 100 + "%";

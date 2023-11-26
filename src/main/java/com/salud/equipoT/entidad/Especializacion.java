@@ -13,12 +13,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "obraSocial")
-public class ObraSocial {
+@Table(name = "especializacion")
+public class Especializacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     private String nombre;
+    
 }

@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "paciente")
 public class Paciente {
 
-    
     @Id
     @Column(name = "id")
     private Long dni;
@@ -34,7 +33,4 @@ public class Paciente {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-
-
-    
 }

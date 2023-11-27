@@ -8,8 +8,11 @@ package com.salud.equipoT.controller;
 
 import com.salud.equipoT.entidad.Doctor;
 import com.salud.equipoT.entidad.Paciente;
+import com.salud.equipoT.entidad.Usuario;
 import com.salud.equipoT.service.DoctorService;
 import com.salud.equipoT.service.PacienteService;
+import com.salud.equipoT.service.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,10 +34,13 @@ public class ImagenController {
     DoctorService doctorService;
     @Autowired
     PacienteService pacienteService;
+    @Autowired
+    private UsuarioService usuarioService;
+
     @GetMapping("/perfil/{id}")
-    public ResponseEntity<byte[]> imagenPaciente(@PathVariable Long id ){
-        Paciente paciente = pacienteService.buscarPaciente(id);
-        byte[] imagen=paciente.getImagen().getContenido();
+    public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id ){
+        Usuario usuario = usuarioService.buscarUsuario(id);
+        byte[] imagen=usuario.getImagen().getContenido();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
         return new ResponseEntity<>(imagen,headers,HttpStatus.OK);

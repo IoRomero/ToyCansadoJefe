@@ -27,7 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "imagen")
 public class Imagen implements Serializable {
     @Id
-    @Column(length = 36)
+    @Column(name = "id" ,length = 36)
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;

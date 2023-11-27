@@ -4,9 +4,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -20,16 +17,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "doctor")
-public class Doctor{
+public class Doctor extends Usuario{
     
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "id")
+@Column(name = "matricula")
 private Long matricula;
-@Column(name = "nombre")
-private String nombre;
-private String email;
-private String password;
+
 private Double puntuacion;
 private Double costoConsulta;
 

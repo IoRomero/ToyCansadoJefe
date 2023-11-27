@@ -35,7 +35,7 @@
 
 
         <!-- Formulario con los campos solicitados -->
-        <form th:action="@{/paciente/registro}" method="POST" class="bg-white p-6 rounded-lgfa-border">
+        <form th:action="@{/paciente/registro}" method="POST" class="bg-white p-6 rounded-lgfa-border" enctype="multipart/form-data">
 
           <!-- Nombre -->
           <div class="mb-4">
@@ -75,8 +75,12 @@
               </option>
               <option th:value=null>No tengo</option>
 
-
             </select>
+
+            <!-- Imagen -->
+            <div class="mb-4">
+              <input type="file" class="form-control" name="archivo">
+            </div>
 
           </div>
 

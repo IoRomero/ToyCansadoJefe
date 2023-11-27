@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.salud.equipoT.entidad.Consulta;
+import com.salud.equipoT.entidad.Imagen;
 import com.salud.equipoT.entidad.Paciente;
 
 import java.util.List;
@@ -25,11 +26,13 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
     @Query("SELECT P FROM Paciente P WHERE P.obraSocial.id = :obraSocialId")
     List<Paciente> findByObraSocial(@Param("obraSocialId") Long obraSocialId);
 
-    @Query("UPDATE Paciente p SET p.nombre = :nombre, p.email = :email, p.password = :password, p.obraSocial = :obraSocial WHERE p.dni = :dni")
+    @Query("UPDATE Paciente p SET p.nombre = :nombre, p.email = :email, p.password = :password, p.obraSocial = :obraSocial, p.imagen = :imagen WHERE p.dni = :dni")
     int editarPaciente(@Param("dni") String dni,
             @Param("nombre") String nombre,
             @Param("email") String email,
             @Param("password") String password,
-            @Param("obraSocial") String obraSocial);
+            @Param("obraSocial") String obraSocial,
+            @Param("imagen") Imagen imagen);
+
 
 }

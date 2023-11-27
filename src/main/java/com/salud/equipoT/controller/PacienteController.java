@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.salud.equipoT.entidad.Imagen;
 import com.salud.equipoT.service.PacienteService;
 
 @Controller
@@ -25,9 +26,9 @@ public class PacienteController {
 
     @PostMapping("/registro")
     public String registro(@RequestParam Long id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, Long obraSocialId) {
+            @RequestParam String password, Long obraSocialId,Imagen imagen) {
 
-        pacienteService.crearPaciente(id, nombre, email, password, obraSocialId);
+        pacienteService.crearPaciente(id, nombre, email, password, obraSocialId,imagen);
 
         return "index.html";
     }

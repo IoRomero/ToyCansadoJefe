@@ -17,7 +17,7 @@
   <div class="container-fluid ">
 
     <div class="login-card">
-      <img src="/src/main/resources/Img/logo.png" alt="AppSalud Logo" class="logo">
+      <img th:src="@{/Img/logo.png}" alt="AppSalud Logo" class="logo">
       <span class="app-name">SaludAPP</span>
       <h2 class="title">Autogestion</h2>
       <form>
@@ -31,7 +31,7 @@
       </form>
 
       <div class="create-account">
-        ¿No tienes una cuenta? <a href="#">Crear usuario</a>
+        ¿No tienes una cuenta? <a href="/paciente/registrar">Crear usuario</a>
       </div>
       <div class="create-account">
         Olvidaste tu clave? Recuperala <a href="#"> aquí.</a>

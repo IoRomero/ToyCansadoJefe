@@ -17,4 +17,7 @@ public class DoctorService {
 
         return doctorRepository.buscarDoctoresPorEspecializacion(id);
     }
+    public Doctor getOne(Long matricula){
+        return doctorRepository.getOne(matricula);
+    } 
 }

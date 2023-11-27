@@ -32,5 +32,8 @@ public class Paciente {
     private HistoriaClinica historiaClinica;
     @Enumerated(EnumType.STRING)
     private Rol rol;
+    @OneToOne
+    @JoinColumn(name = "idimagen")
+    private Imagen imagen;
 
 }

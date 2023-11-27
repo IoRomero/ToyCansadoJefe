@@ -72,5 +72,6 @@ public class PacienteService {
 
         return pacienteRepository.findByObraSocial(obraSocial.getId());
     }
+    
 
 }

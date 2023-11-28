@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/src/main/resources/static/css/pacienteForm.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-gray-100 m-0 p-0 ">
+  <div class="container-fluid ">
+    <!-- Navbar con logo y nombre -->
+    <nav class="bg-green-600 p-4">
+      <div class="container mx-auto flex items-center justify-between">
+        <div class="flex items-center">
+          <img th:src="@{/Img/logo.png}" alt="Logo SaludAPP" class="w-8 h-8 mr-2">
+          <span class="text-white text-lg font-bold">SaludAPP</span>
+        </div>
+        <ul class="flex space-x-4 text-white">
+          <li><a href="/" class="hover:bg-gray-600 px-4 py-2 rounded">Home</a></li>
+          <li><a href="#contact" class="hover:bg-gray-600 px-4 py-2 rounded">Contacto</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Centra el formulario -->
+    <div class="max-w-md mx-auto mt-8 mb-20">
+
+      <h2 class="text-2xl font-bold mb-4">Formulario de Registro</h2>
+
+
+      <div class="container mx-auto ">
+
+
+        <!-- Formulario con los campos solicitados -->
+        <form th:action="@{/paciente/registro}" method="POST" class="bg-white p-6 rounded-lgfa-border" enctype="multipart/form-data">
+
+          <!-- Nombre -->
+          <div class="mb-4">
+            <label for="nombre" class="block text-gray-600 text-sm font-semibold mb-2">Nombre:</label>
+            <input type="text" id="nombre" name="nombre"
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+          </div>
+
+          <!-- DNI -->
+          <div class="mb-4">
+            <label for="id" class="block text-gray-600 text-sm font-semibold mb-2">DNI:</label>
+            <input type="number" id="id" name="id"
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+          </div>
+
+          <!-- Correo Electrónico -->
+          <div class="mb-4">
+            <label for="email" class="block text-gray-600 text-sm font-semibold mb-2">Correo Electrónico:</label>
+            <input type="email" id="email" name="email"
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+          </div>
+
+          <!-- Contraseña -->
+          <div class="mb-4">
+            <label for="password" class="block text-gray-600 text-sm font-semibold mb-2">Contraseña:</label>
+            <input type="password" id="password" name="password"
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+          </div>
+
+          <!-- Obra Social -->
+          <div class="mb-4">
+            <label for="obra-social" class="block text-gray-600 text-sm font-semibold mb-2">Obra Social:</label>
+            <select class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required
+              id="obraSocialId" name="obraSocialId">
+              <option th:value=null>Seleccionar ObraSocial</option>
+              <option th:each="obraSocial :${ObraSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}">
+              </option>
+              <option th:value=null>No tengo</option>
+
+            </select>
+
+            <!-- Imagen -->
+            <div class="mb-4">
+              <input type="file" class="form-control" name="archivo">
+            </div>
+
+          </div>
+
+          <!-- Botón de Envío -->
+          <div class="text-center">
+            <button type="submit"
+              class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none mt-2 w-full">Registrarse</button>
+          </div>
+
+        </form>
+      </div>
+
+
+    </div>
+
+    <!-- Footer -->
+
+
+  </div>
+
+  <footer class="mt-8 mb-0 text-center text-white p-7 bg-green-800  ">
+
+    <p>&copy; 2023 SaludAPP. Todos los derechos reservados.</p>
+
+
+  </footer>
+
+</body>
+
+</html>

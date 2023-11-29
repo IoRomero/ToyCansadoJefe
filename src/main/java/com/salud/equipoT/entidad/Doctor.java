@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.salud.equipoT.enums.Rol;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

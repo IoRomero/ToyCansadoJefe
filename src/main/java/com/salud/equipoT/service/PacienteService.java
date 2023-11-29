@@ -1,8 +1,16 @@
 package com.salud.equipoT.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,12 +20,12 @@ import com.salud.equipoT.entidad.Consulta;
 import com.salud.equipoT.entidad.Imagen;
 import com.salud.equipoT.entidad.ObraSocial;
 import com.salud.equipoT.entidad.Paciente;
-import com.salud.equipoT.entidad.Rol;
+import com.salud.equipoT.enums.Rol;
 import com.salud.equipoT.repository.ObraSocialRepository;
 import com.salud.equipoT.repository.PacienteRepository;
 
 @Service
-public class PacienteService {
+public class PacienteService implements UserDetailsService{
 
     @Autowired
     private PacienteRepository pacienteRepository;
@@ -25,17 +33,21 @@ public class PacienteService {
     private ObraSocialRepository obraSocialRepository;
     @Autowired
     private ImagenService imagenService;
-    @Transactional
-    public void crearPaciente(Long dni, String nombre, String email, String password, Long obraSocialId,@RequestParam (required = false)MultipartFile imagen) throws Exception {
     
-        
-       /*  Paciente paciente = Paciente.builder()
+    @Transactional
+    public void crearPaciente(Long dni, String nombre, String email, String password,String password2, Long obraSocialId,MultipartFile imagen) throws Exception{
+    
+       /* 
+        Paciente paciente = Paciente.builder()
         .dni(dni)
         .nombre(nombre)
         .email(email)
         .password(password)
         .obraSocial(obraSocialRepository.findById(obraSocialId).orElse(null))
-        .imagen(imagen).build();*/
+        .imagen(imagen).build();
+        */
+        validar(nombre, email, password, password2);
+
         Paciente paciente = new Paciente();
         Imagen imagenPercistir = imagenService.guardar(imagen);
         if (obraSocialId != null) {
@@ -43,7 +55,7 @@ public class PacienteService {
             paciente.setDni(dni);
             paciente.setNombre(nombre);
             paciente.setEmail(email);
-            paciente.setPassword(password);
+            paciente.setPassword(new BCryptPasswordEncoder().encode(password));
             paciente.setObraSocial(obraSocialRepository.findById(obraSocialId).orElse(null));
             paciente.setRol(Rol.PACIENTE);
             paciente.setImagen(imagenPercistir);
@@ -52,13 +64,12 @@ public class PacienteService {
             paciente.setDni(dni);
             paciente.setNombre(nombre);
             paciente.setEmail(email);
-            paciente.setPassword(password);
+            paciente.setPassword(new BCryptPasswordEncoder().encode(password));
             paciente.setObraSocial(null);
             paciente.setRol(Rol.PACIENTE);
             paciente.setImagen(imagenPercistir);
 
         }
-
 
         pacienteRepository.save(paciente);
 
@@ -91,5 +102,42 @@ public class PacienteService {
         return pacienteRepository.findByObraSocial(obraSocial.getId());
     }
     
+    public void validar(String nombre,String email,String password,String password2)throws Exception{
 
-}
+        if(nombre.isBlank()){
+            throw   new IllegalArgumentException("el usuario debe tener nombre");
+        }
+
+        if (email.isBlank()) {
+            throw new IllegalArgumentException("el usuario debe tener email");
+        }
+
+        if (password.isBlank() || password.length() <= 4) {
+            throw new IllegalArgumentException("La contrase;a debe tener mas de 4 caracteres");
+        }
+
+        if (!password2.equals(password)){
+            throw new IllegalArgumentException("Las contrase;as ingresadas deben ser iguales");
+        }
+    }
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    
+    Paciente paciente = pacienteRepository.findByEmail(email);
+
+    if (paciente != null){
+        
+        List<GrantedAuthority> permisos = new ArrayList();
+        
+        GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+ paciente.getRol().toString());
+
+        permisos.add(p);
+
+        return new User(paciente.getEmail(),paciente.getPassword(),permisos);
+    }else{
+        return null;
+    }
+    
+    }
+    
+}   

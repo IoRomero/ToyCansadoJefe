@@ -32,8 +32,8 @@ public class ImagenController {
     DoctorService doctorService;
     @Autowired
     PacienteService pacienteService;
-
-   /* @GetMapping("/perfil/{id}")
+/* 
+   @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id ){
         Usuario usuario = usuarioService.buscarUsuario(id);
         byte[] imagen=usuario.getImagen().getContenido();

@@ -9,6 +9,8 @@ package com.salud.equipoT.service;
 import com.salud.equipoT.entidad.Imagen;
 import com.salud.equipoT.repository.ImagenRepository;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Service
 public class ImagenService {
+    
+    @Autowired
     private ImagenRepository imagenRepository;
+
     public Imagen guardar(MultipartFile archivo) throws Exception{
         if (archivo !=null) {
             try {

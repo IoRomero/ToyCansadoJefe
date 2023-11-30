@@ -34,6 +34,7 @@ public class Imagen implements Serializable {
     
     private String mime;
     private String nombre;
+    
     @Lob @Basic(fetch=FetchType.LAZY)
     private byte[] contenido;
 }

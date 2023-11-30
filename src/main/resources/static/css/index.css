@@ -14,11 +14,11 @@ p {
   font-family: "Montserrat" sans-serif;
 }
 
-.carousel-container {
+.carouselNista {
   width: 75%;
   overflow: hidden;
   margin: 0 auto;
-  position: relative;
+  position: middle center;
   margin-top: 50px;
   margin-bottom: 50px;
 }

@@ -14,15 +14,16 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+//import lombok.experimental.SuperBuilder;
 
-@Entity
+@MappingSuperclass
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
+//@SuperBuilder
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements UserDitails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

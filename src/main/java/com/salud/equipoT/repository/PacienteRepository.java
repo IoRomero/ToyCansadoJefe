@@ -1,6 +1,7 @@
 package com.salud.equipoT.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -25,9 +26,10 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
     @Query("SELECT P FROM Paciente P WHERE P.obraSocial.id = :obraSocialId")
     List<Paciente> findByObraSocial(@Param("obraSocialId") Long obraSocialId);
-
+    
+    @Modifying
     @Query("UPDATE Paciente p SET p.nombre = :nombre, p.email = :email, p.password = :password, p.obraSocial = :obraSocial, p.imagen = :imagen WHERE p.dni = :dni")
-    int editarPaciente(@Param("dni") String dni,
+    void    editarPaciente(@Param("dni") String dni,
             @Param("nombre") String nombre,
             @Param("email") String email,
             @Param("password") String password,
@@ -35,4 +37,5 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
             @Param("imagen") Imagen imagen);
 
 
+    List<Paciente> findAll();
 }

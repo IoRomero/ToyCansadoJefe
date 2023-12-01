@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 //import lombok.experimental.SuperBuilder;
 
 @MappingSuperclass
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -36,15 +36,27 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                               Profecional
+                               Doctores
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                                <li><a class="dropdown-item" th:href="@{/doctor/registrar}">Crear Profecional</a></li>
+                                <li><a class="dropdown-item" th:href="@{/doctor/registrar}">Crear Doctor</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" th:href="@{/doctor/lista}">Listar Profecional</a></li>
+                                <li><a class="dropdown-item" th:href="@{/doctor/lista}">Listar Doctores</a></li>
                             </ul>
                         </li>
-
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Obra Sociales
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item" th:href="@{/obrasocial/registrar}">Crear Obra Social</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" th:href="@{/obrasocial/lista}">Listar Obras Sociales</a></li>
+                            </ul>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
@@ -79,6 +91,9 @@
                     </ul>
                 </div>
             </nav>
+
+
+            
             <div class="p-7">
                 <h1 class="text-5xl font-bold text-center text-green-600  ">Bienvenido a SaludAPP</h1>
                 <h3 class=" text-2xl text-center text-gray-600 pt-5">Descubre nuestra red de salud</h3>

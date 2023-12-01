@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -119,6 +120,15 @@ public class PacienteService implements UserDetailsService{
             throw new IllegalArgumentException("Las contrase;as ingresadas deben ser iguales");
         }
     }
+
+    public List<Paciente> listarPacientes(){
+        List<Paciente> pacientes= new ArrayList();
+        Sort sort = Sort.by(Sort.Direction.ASC, "nombre");
+        pacientes = pacienteRepository.findAll(sort);
+        return pacientes;
+    }
+
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     

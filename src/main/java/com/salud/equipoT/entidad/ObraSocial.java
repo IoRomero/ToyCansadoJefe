@@ -21,6 +21,5 @@ public class ObraSocial {
     @Column(name = "id")
     private Long id;
     private String nombre;
-    private Long cobertura;
     
 }

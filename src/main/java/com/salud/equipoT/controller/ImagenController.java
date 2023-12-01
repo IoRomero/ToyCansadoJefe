@@ -32,15 +32,15 @@ public class ImagenController {
     DoctorService doctorService;
     @Autowired
     PacienteService pacienteService;
-/* 
+
    @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id ){
-        Usuario usuario = usuarioService.buscarUsuario(id);
-        byte[] imagen=usuario.getImagen().getContenido();
+        Paciente paciente = pacienteService.buscarPaciente(id);
+        byte[] imagen=paciente.getImagen().getContenido();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
         return new ResponseEntity<>(imagen,headers,HttpStatus.OK);
-    }
+    }/* 
     @GetMapping ("/perfil/{matricula}")
     public ResponseEntity<byte[]> imagenDoctor(@PathVariable Long matricula){
         Doctor doctor = doctorService.getOne(matricula);

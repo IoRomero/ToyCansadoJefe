@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head>
-         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Listado de Especializacion</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-              crossorigin="anonymous">
-        <script src="/static/js/carousel-script.js"></script>
-        <link rel="stylesheet" href="/static/css/index.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,800;1,900&display=swap">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Paciente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="/static/js/carousel-script.js"></script>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 
-    <body>
-       <div class="container-fluid ">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,800;1,900&display=swap">
+
+</head>
+
+<body class="bg-gray-100 m-0 p-0 ">
+    <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navBar bg-green-600">
             <div class="containerImg">
                 <a href="/" class="navbar-brand d-flex align-items-center">
@@ -100,38 +102,46 @@
                 </ul>
             </div>
         </nav>
-
-        <div class="container m-5" >
+        <div class="container m-5">
 
             <table class="table table-dark">
                 <thead>
                     <tr>
-                        <th scope="col">Id de la Especializacion</th>
-                        <th scope="col">Nombre la Especializacion</th>
-                        <th scope="col">Acciones</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Obra Social</th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col" sec:authorize="hasRole('ADMIN')">Acciones</th>
 
                     </tr>
                 </thead>
-                <tbody th:each="especializacion : ${especializaciones}"> 
+                <tbody th:each="paciente : ${pacientes}">
                     <tr>
-                        <th scope="row" th:text="${especializacion.id}"></th>
-                        <td th:text="${especializacion.nombre}"></td>
+                        <th th:text="${paciente.dni}"></th>
+                        <td th:text="${paciente.nombre}"></td>
+                        <td th:text="${paciente.email}"></td>
+                        <td th:text="${paciente.obraSocial}"></td>
                         <td>
-                            <a th:href= "@{/especializacion/modificar/__${especializacion.id}__}"><i class="fas fa-feather-alt">  </i> Modificar </a>
+                            <a><img th:if="${paciente.imagen != null}" class="logo img-fluid"
+                                    th:src="@{/imagen/perfil/__${paciente.dni}__}" style="max-width: 100px; max-height: 100px;"></a>
                         </td>
-
+                        <td>
+                            <a sec:authorize="hasRole('ADMIN')" th:href="@{/paciente/modificar/__${paciente.id}__}"><i
+                                    class="fas fa-feather-alt"></i> Modificar </a>
+                        </td>
                     </tr>
 
                 </tbody>
             </table>
 
-            <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+            <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito">
                 <div class="card-body">
                     <h5 class="card-title">Exito ð</h5>
                     <p class="card-text" th:text="${exito}"></p>
                 </div>
             </div>
-            <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
+            <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError">
                 <div class="card-body">
                     <h5 class="card-title">Error ð</h5>
                     <p class="card-text" th:text="${error}"></p>
@@ -146,24 +156,32 @@
                     </div>
                 </div>
             </section>
-
         </div>
-
-        <footer class="text-muted py-5">
-            <footer class="mt-8 mb-0 text-center text-white p-7 bg-green-800  ">
+    </div>
+          
+        <footer class="mt-8 mb-0 text-center text-white p-7 bg-green-800  ">
             <p>&copy; 2023 SaludAPP. Todos los derechos reservados.</p>
+            <p class="float-end mb-1">
+                    <a href="#" style="text-decoration:none"><span>⬆️</span> Back to top</a>
+            </p>
         </footer>
 
 
 
-        <!-- JavaScript Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    </body>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
 
 </html>
+

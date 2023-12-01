@@ -1,5 +1,7 @@
 package com.salud.equipoT.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.salud.equipoT.entidad.Paciente;
 import com.salud.equipoT.service.PacienteService;
 
 @Controller
@@ -52,6 +55,13 @@ public class PacienteController {
         }
 
         return "index.html";
+    }
+
+    @GetMapping("/lista")
+    public String listar(ModelMap modelo){
+        List<Paciente> pacientes=pacienteService.listarPacientes();
+        modelo.addAttribute("pacientes", pacientes);
+        return "paciente_list";
     }
   
 }

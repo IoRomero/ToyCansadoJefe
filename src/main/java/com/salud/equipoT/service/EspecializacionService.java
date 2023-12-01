@@ -31,12 +31,8 @@ public class EspecializacionService {
     @Transactional
     public void modificarEspecializacion(String id, String nombre) throws MiException{
         validar(nombre);
-        Optional<Especializacion> respuesta = especializacionRepository.findById(id);
-        if (respuesta.isPresent()) {
-            Especializacion especializacion = respuesta.get();
-            especializacion.setNombre(nombre);
-            especializacionRepository.save(especializacion);
-        }
+       especializacionRepository.editarEspecializacion(id, nombre);
+       
     }
     private void validar(String nombre) throws MiException{
         if (nombre.isEmpty()|| nombre == null) {
@@ -45,5 +41,8 @@ public class EspecializacionService {
     }
     public Especializacion getOne(String id){
         return especializacionRepository.findById(id).orElse(null);
+    }
+    public void borrarEspecializacion(String id){
+        especializacionRepository.deleteById(id);;
     }
 }

@@ -3,7 +3,7 @@
     <head>
          <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Listado de Especializacion</title>
+        <title>Listado de Obra Sociales</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
               crossorigin="anonymous">
@@ -100,24 +100,23 @@
                 </ul>
             </div>
         </nav>
-
         <div class="container m-5" >
 
             <table class="table table-dark">
                 <thead>
                     <tr>
-                        <th scope="col">Id de la Especializacion</th>
-                        <th scope="col">Nombre la Especializacion</th>
+                        <th scope="col">Id de la Obra Social</th>
+                        <th scope="col">Nombre la Obra Social</th>
                         <th scope="col">Acciones</th>
 
                     </tr>
                 </thead>
-                <tbody th:each="especializacion : ${especializaciones}"> 
+                <tbody th:each="obrasocial : ${obrasociales}"> 
                     <tr>
-                        <th scope="row" th:text="${especializacion.id}"></th>
-                        <td th:text="${especializacion.nombre}"></td>
+                        <th scope="row" th:text="${obrasocial.id}"></th>
+                        <td th:text="${obrasocial.nombre}"></td>
                         <td>
-                            <a th:href= "@{/especializacion/modificar/__${especializacion.id}__}"><i class="fas fa-feather-alt">  </i> Modificar </a>
+                            <a th:href= "@{/obrasocial/modificar/__${obrasocial.id}__}"><i class="fas fa-feather-alt">  </i> Modificar </a>
                         </td>
 
                     </tr>

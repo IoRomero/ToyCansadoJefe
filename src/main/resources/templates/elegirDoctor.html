@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Mostrar Disponibilidades</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/turnero.css" rel="stylesheet">
+    </head>
+
+
+    <body>
+        <label for="opciones">Elige un profesional:</label>
+        <select id="opciones" name="opciones">
+            <option value="">Selecciona un profesional</option>
+
+            <option th:text="${doctor.nombre}" value="opcion1">Opción 1</option>
+            <option value="opcion2">Opción 2</option>
+            <option value="opcion3">Opción 3</option>
+            <option value="opcion4">Opción 4</option>
+        </select>
+
+        <div>
+            <a href="https://www.ejemplo.com" target="_blank" rel="">
+                <button type="button">Ver calendario</button>
+            </a>
+        </div>
+    </body>
+
+
+</html>

@@ -3,7 +3,7 @@
     border-radius: 30%; /* Para crear la forma de burbuja */
     border: 1px solid #ccc; /* Borde de la burbuja */
     width: 100px; /* Tamaño de la burbuja */
-    height: 50px; /* Tamaño de la burbuja */
+    height: 30px; /* Tamaño de la burbuja */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,4 +29,14 @@ table {
 
 .table-bordered td, .table-bordered th {
     border: 0; /* Eliminar bordes de la tabla */
+}
+
+.burbujaDisponible {
+    background-color: green; /* Color rojo para burbujas ocupadas */
+}
+
+.contenedorBurbuja {
+    display: flex;
+    align-items: center;
+
 }

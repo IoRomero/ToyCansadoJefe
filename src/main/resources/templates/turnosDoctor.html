@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Mostrar Disponibilidades</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/turnero.css" rel="stylesheet">
+    </head>
+
+
+    <body>     
+
+        <div class="container-fluid centered"> <!-- Centrar el contenido -->
+
+            <div class="row justify-content-center">                
+
+
+                <form th:action="@{/turnero/reserva}" method="post">
+                    <h1 class="mb-4">Calendario de turnos disponibles Dr Saraguya</h1>
+                    <table class="table text-center">
+
+                        <thead class="thead-dark">
+                            <tr>
+                                <th th:text="'Lunes ' + ${#dates.format(turnero[0][0].fechaInicio, 'dd/MM')}"></th>
+                                <th th:text="'Martes ' + ${#dates.format(turnero[0][1].fechaInicio, 'dd/MM')}"></th>
+                                <th th:text="'Miércoles  ' + ${#dates.format(turnero[0][2].fechaInicio, 'dd/MM')}"></th>
+                                <th th:text="'Jueves ' + ${#dates.format(turnero[0][3].fechaInicio, 'dd/MM')}"></th>
+                                <th th:text="'Viernes ' + ${#dates.format(turnero[0][4].fechaInicio, 'dd/MM')}"></th>
+                                <th th:text="'Sabado ' + ${#dates.format(turnero[0][5].fechaInicio, 'dd/MM')}"></th>
+                                <th th:text="'Domingo ' + ${#dates.format(turnero[0][6].fechaInicio, 'dd/MM')}"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="row : ${turnero}"> <!-- Iterar sobre las filas -->
+                                <td th:each="turno : ${row}"> <!-- Iterar sobre las disponibilidades de cada fila -->
+                                    <div th:class="contenedorBurbuja">
+                                        <div th:class="${turno.disponible == true} ? 'burbuja burbujaDisponible' : 'burbuja'">
+                                            <span th:text="${#dates.format(turno.fechaInicio, 'H:mm') + 'h'}"></span>
+                                        </div>
+                                        <input th:if="${turno.disponible == true}" type="radio" name="turnoId" th:value="${turno.id}">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <button type="submit">Reservar turno</button>
+                </form>
+
+
+            </div>
+        </div>
+
+    </body>
+
+</html>

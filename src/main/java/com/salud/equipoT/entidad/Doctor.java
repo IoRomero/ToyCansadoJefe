@@ -21,30 +21,29 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Table(name = "doctor")
-public class Doctor{
-    
-@Id
-@Column(name = "id")
-private Long matricula;
+public class Doctor {
 
-private Double puntuacion;
-private Double costoConsulta;
+  @Id
+  @Column(name = "id")
+  private Long matricula;
 
+  private String nombre;
+  private Double puntuacion;
+  private Double costoConsulta;
 
-    private String email;
-    private String password;
-    private String nombre;
-     
-    @OneToOne
-    @JoinColumn(name = "idimagen" , referencedColumnName = "id")
-    private Imagen imagen;
+  private String email;
+  private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Rol rol;
+  @OneToOne
+  @JoinColumn(name = "idimagen", referencedColumnName = "id")
+  private Imagen imagen;
 
-@OneToOne
-private Especializacion especializacion;
+  @Enumerated(EnumType.STRING)
+  private Rol rol;
 
-@OneToMany
-private List<Disponibilidad> turnos;
+  @OneToOne
+  private Especializacion especializacion;
+
+  @OneToMany
+  private List<Turno> turnos;
 }

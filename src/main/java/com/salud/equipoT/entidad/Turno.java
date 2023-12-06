@@ -1,12 +1,14 @@
 package com.salud.equipoT.entidad;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,17 +16,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name="turno")
 public class Turno {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-    @OneToOne
-    private Disponibilidad disponibilidad;
-    @OneToOne
-    private Paciente paciente;
-    private Boolean baja;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private Long id;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date fechaInicio;
+
+  private Boolean disponible;
+  private Boolean reservado;
+
 
 }

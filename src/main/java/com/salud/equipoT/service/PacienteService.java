@@ -21,6 +21,7 @@ import com.salud.equipoT.entidad.Imagen;
 import com.salud.equipoT.entidad.ObraSocial;
 import com.salud.equipoT.entidad.Paciente;
 import com.salud.equipoT.enums.Rol;
+import com.salud.equipoT.excepciones.MiException;
 import com.salud.equipoT.repository.ObraSocialRepository;
 import com.salud.equipoT.repository.PacienteRepository;
 
@@ -75,8 +76,14 @@ public class PacienteService implements UserDetailsService{
 
     }
     @Transactional
-    public void editarPaciente(String dni, String nombre, String email, String password, String obraSocial,Imagen imagen) {
-            pacienteRepository.editarPaciente(dni, nombre, email, password, obraSocial,imagen);
+    public void editarPaciente(Long dni, String nombre, String email, String password, String password2, String obraSocial,MultipartFile imagen) throws Exception{
+        validar(nombre, email, password, password2);
+
+
+            Imagen imagenPercistir = imagenService.actualizar(imagen, buscarPaciente(dni).getImagen().getId() );
+       
+        
+            pacienteRepository.editarPaciente(dni, nombre, email, password, obraSocial,imagenPercistir);
         }
 
    
@@ -84,6 +91,9 @@ public class PacienteService implements UserDetailsService{
     @Transactional
     public void eliminarPaciente(Paciente paciente) {
         pacienteRepository.delete(paciente);
+    }
+    public Paciente findByEmail(String email){
+        return pacienteRepository.findByEmail(email);
     }
 
     public Paciente buscarPaciente(Long dni) {
@@ -102,7 +112,7 @@ public class PacienteService implements UserDetailsService{
         return pacienteRepository.findByObraSocial(obraSocial.getId());
     }
     
-    public void validar(String nombre,String email,String password,String password2)throws Exception{
+    public void validar(String nombre,String email,String password,String password2)throws MiException{
 
         if(nombre.isBlank()){
             throw   new IllegalArgumentException("el usuario debe tener nombre");

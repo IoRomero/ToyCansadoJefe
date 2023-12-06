@@ -20,7 +20,7 @@ public class ObraSocialController {
     private ObraSocialService obraSocialService;
     @GetMapping("/registrar")//localhost:8080/obrasocial/registrar
     public String registrar(){
-        return "/obrasocial_form";
+        return "obrasocial_form.html";
     }
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre,ModelMap modelo){
@@ -29,20 +29,20 @@ public class ObraSocialController {
             modelo.put("exito", "La Obra Social fue cargada correctamente");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "obrasocial_form";
+            return "obrasocial_form.html";
         }
-        return "index";
+        return "redirect:../lista";
     }
     @GetMapping("/lista")
     public String listar(ModelMap modelo){
         List<ObraSocial> obrasociales = obraSocialService.listarObraSociales();
         modelo.addAttribute("obrasociales", obrasociales);
-        return "obrasocial_list";
+        return "obrasocial_list.html";
     }
     @GetMapping("/modificar/{id}")
     public String modificar(@PathVariable Long id, ModelMap modelo){
-       modelo.put("obrasocial",obraSocialService.obtenerObraSocialPorId(id));
-       return "obrasocial_modificar";
+       modelo.put("obrasociales",obraSocialService.obtenerObraSocialPorId(id));
+       return "obrasocial_modificar.html";
     }
     @PostMapping("/modificar/{id}")
     public String modificar(@PathVariable Long id,String nombre, ModelMap modelo){
@@ -50,9 +50,15 @@ public class ObraSocialController {
             obraSocialService.modificarObraSocial(id, nombre);
             return "redirect:../lista";
         } catch (MiException ex) {
-            modelo.put("obrasocial",obraSocialService.obtenerObraSocialPorId(id));
+            modelo.put("obrasociales",obraSocialService.obtenerObraSocialPorId(id));
             modelo.put("error", ex.getMessage());
-            return "obrasocial_modificar";
+            return "obrasocial_modificar.html";
         }
     } 
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable Long id){
+        obraSocialService.eliminarObraSocial(id);
+       return "redirect:../lista";
+    }
 }

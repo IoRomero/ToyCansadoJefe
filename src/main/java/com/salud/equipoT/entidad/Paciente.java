@@ -41,8 +41,10 @@ public class Paciente {
     @ManyToOne()
     @JoinColumn(name = "obra_social_id", referencedColumnName = "id")
     private ObraSocial obraSocial;
+    
     @OneToOne()
     private HistoriaClinica historiaClinica;
+
     @OneToOne
     @JoinColumn(name = "idimagen" , referencedColumnName = "id")
     private Imagen imagen;

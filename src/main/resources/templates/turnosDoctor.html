@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Mostrar Disponibilidades</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/turnero.css" rel="stylesheet">
+    </head>
+
+
+    <body>     
+
+        <div class="container-fluid centered"> <!-- Centrar el contenido -->
+
+            <div class="row justify-content-center">                
+
+
+                <form th:action="@{/turnero/reserva}" method="post">
+                    <h1 class="mb-4">Calendario de turnos disponibles Dr Saraguya</h1>
+                    <table class="table text-center">
+
+                        <thead class="thead-dark">
+                            <tr>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="row : ${turnero}"> <!-- Iterar sobre las filas -->
+                                <td th:each="turno : ${row}"> <!-- Iterar sobre los turnos de cada fila -->
+                                    <div th:class="contenedorBurbuja">
+                                        <div th:class="${turno != null and turno.disponible == true and turno.reservado != true ? 'burbuja burbujaDisponible' 
+                                            : (turno != null and turno.reservado != null and turno.reservado ? 'burbuja burbujaReservada' : 'burbuja')}">
+                                            <span th:if="${turno !=null}" th:text="${turno.fechaInicio}"></span>
+                                        
+                                        </div>
+                                        
+                                        <a th:if="${turno != null and turno.reservado == true}" th:href="@{'/ver-turno/' + ${turno.id}}">Ver turno</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <button type="submit">Reservar turno</button>
+                </form>
+
+
+            </div>
+        </div>
+
+    </body>
+
+</html>

@@ -30,3 +30,16 @@ table {
 .table-bordered td, .table-bordered th {
     border: 0; /* Eliminar bordes de la tabla */
 }
+.burbujaDisponible {
+    background-color: green; /* Color verde para burbujas disponibles */
+}
+
+.burbujaReservada {
+    background-color: red; /* Color rojo para burbujas reservadas */
+}
+
+.contenedorBurbuja {
+    display: flex;
+    align-items: center;
+
+}

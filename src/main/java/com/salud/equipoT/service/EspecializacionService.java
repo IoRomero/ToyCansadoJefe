@@ -5,7 +5,6 @@ import com.salud.equipoT.excepciones.MiException;
 import com.salud.equipoT.repository.EspecializacionRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +41,8 @@ public class EspecializacionService {
     public Especializacion getOne(String id){
         return especializacionRepository.findById(id).orElse(null);
     }
-    public void borrarEspecializacion(String id){
+    @Transactional
+    public void eliminarEspecializacion(String id){
         especializacionRepository.deleteById(id);;
     }
 }

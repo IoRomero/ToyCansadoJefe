@@ -17,6 +17,9 @@ import java.util.Optional;
 public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
     Optional<Paciente> findById(Long dni);
+    
+    @Query("SELECT P FROM Paciente P WHERE P.nombre =: nombre")
+    Paciente findByNombre(@Param("nombre") String nombre);
 
     @Query("SELECT P From Paciente P WHERE P.email =:email")
     Paciente findByEmail(@Param("email") String email);
@@ -29,7 +32,7 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
     
     @Modifying
     @Query("UPDATE Paciente p SET p.nombre = :nombre, p.email = :email, p.password = :password, p.obraSocial = :obraSocial, p.imagen = :imagen WHERE p.dni = :dni")
-    void    editarPaciente(@Param("dni") String dni,
+    void    editarPaciente(@Param("dni") Long dni,
             @Param("nombre") String nombre,
             @Param("email") String email,
             @Param("password") String password,

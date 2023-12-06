@@ -3,7 +3,7 @@
     <head>
         <title>Mostrar Disponibilidades</title>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/src/main/resources/static/css/turnero.css" rel="stylesheet">
+        <link href="/css/turnero.css" rel="stylesheet">
     </head>
 
 
@@ -26,10 +26,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="row, rowStat : ${turnero}">
-                                <td th:each="date : ${row}">
-                                    <div class="burbuja">
-                                        <span th:text="${#dates.format(date, 'H:mm') + 'h'}"></span>
+                            <tr th:each="row : ${turnero}"> <!-- Iterar sobre las filas -->
+                                <td th:each="turno : ${row}"> <!-- Iterar sobre las disponibilidades de cada fila -->
+                                    <div th:class="${turno.disponible == true} ? 'burbuja burbujaDisponible' : 'burbuja'">
+                                        <span th:text="${#dates.format(turno.fechaInicio, 'H:mm') + 'h'}"></span>
                                     </div>
                                 </td>
                             </tr>

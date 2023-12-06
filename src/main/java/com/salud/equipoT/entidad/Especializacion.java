@@ -14,6 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Data
 @Table(name = "especializacion")
 public class Especializacion implements Serializable {
+    
     @Id
     @Column(length = 36)
     @GeneratedValue(generator = "uuid")

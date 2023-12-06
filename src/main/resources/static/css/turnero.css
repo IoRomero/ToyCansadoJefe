@@ -36,6 +36,7 @@ table {
     /* Color de fondo gris */
 }
 
+<<<<<<< HEAD
 .table-bordered td,
 .table-bordered th {
     border: 0;
@@ -45,15 +46,29 @@ table {
 .burbujaDisponible {
     background-color: green;
     /* Color rojo para burbujas ocupadas */
+=======
+.table-bordered td, .table-bordered th {
+    border: 0; /* Eliminar bordes de la tabla */
+}
+.burbujaDisponible {
+    background-color: green; /* Color verde para burbujas disponibles */
+}
+
+.burbujaReservada {
+    background-color: red; /* Color rojo para burbujas reservadas */
+>>>>>>> c08482c86cdbff624e01fa74309e7688b7a87dc0
 }
 
 .contenedorBurbuja {
     display: flex;
     align-items: center;
 
+<<<<<<< HEAD
 }
 
 .burbujaReservada {
     background-color: red;
     /* Color rojo para burbujas reservadas */
+=======
+>>>>>>> c08482c86cdbff624e01fa74309e7688b7a87dc0
 }

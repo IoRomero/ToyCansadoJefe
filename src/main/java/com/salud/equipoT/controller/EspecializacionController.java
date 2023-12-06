@@ -32,14 +32,16 @@ public class EspecializacionController {
             modelo.put("error", ex.getMessage());
             return "especializacion_form";
         }
-        return "index";
+        return "redirect:../lista";
     }
+
     @GetMapping("/lista")
     public String listar(ModelMap modelo){
         List<Especializacion> especializaciones = especializacionService.listarEspecializaciones();
         modelo.addAttribute("especializaciones", especializaciones);
         return "especializacion_list";
     }
+
     @GetMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, ModelMap modelo){
        modelo.put("especializacion",especializacionService.getOne(id));
@@ -49,11 +51,19 @@ public class EspecializacionController {
     public String modificar(@PathVariable String id,String nombre, ModelMap modelo){
         try {
             especializacionService.modificarEspecializacion(id, nombre);
-            return "redirect:../lista";
+          
         } catch (MiException ex) {
             modelo.put("especializacion",especializacionService.getOne(id));
             modelo.put("error", ex.getMessage());
             return "especializacion_modificar";
         }
-    } 
+          return "redirect:../lista";
+    }
+
+     @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable String id){
+        especializacionService.eliminarEspecializacion(id);
+       return "redirect:../lista";
+    }
+   
 }

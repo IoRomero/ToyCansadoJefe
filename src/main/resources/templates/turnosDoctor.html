@@ -20,6 +20,7 @@
 
                         <thead class="thead-dark">
                             <tr>
+<<<<<<< HEAD
                                 <th th:text="'Lunes ' + ${#dates.format(turnero[0][0].fechaInicio, 'dd/MM')}"></th>
                                 <th th:text="'Martes ' + ${#dates.format(turnero[0][1].fechaInicio, 'dd/MM')}"></th>
                                 <th th:text="'Miércoles  ' + ${#dates.format(turnero[0][2].fechaInicio, 'dd/MM')}"></th>
@@ -27,6 +28,8 @@
                                 <th th:text="'Viernes ' + ${#dates.format(turnero[0][4].fechaInicio, 'dd/MM')}"></th>
                                 <th th:text="'Sabado ' + ${#dates.format(turnero[0][5].fechaInicio, 'dd/MM')}"></th>
                                 <th th:text="'Domingo ' + ${#dates.format(turnero[0][6].fechaInicio, 'dd/MM')}"></th>
+=======
+>>>>>>> c08482c86cdbff624e01fa74309e7688b7a87dc0
                             </tr>
                         </thead>
 
@@ -34,11 +37,21 @@
                             <tr th:each="row : ${turnero}"> <!-- Iterar sobre las filas -->
                                 <td th:each="turno : ${row}"> <!-- Iterar sobre los turnos de cada fila -->
                                     <div th:class="contenedorBurbuja">
+<<<<<<< HEAD
                                         <div th:class="${turno.disponible == true and turno.reservado != true ? 'burbuja burbujaDisponible' 
                                              : (turno.reservado != null and turno.reservado ? 'burbuja burbujaReservada' : 'burbuja')}">
                                             <span th:text="${#dates.format(turno.fechaInicio, 'H:mm') + 'h'}"></span>
                                         </div>
                                         <a th:if="${turno.reservado == true}" th:href="@{'/ver-turno/' + ${turno.id}}">Ver turno</a>
+=======
+                                        <div th:class="${turno != null and turno.disponible == true and turno.reservado != true ? 'burbuja burbujaDisponible' 
+                                            : (turno != null and turno.reservado != null and turno.reservado ? 'burbuja burbujaReservada' : 'burbuja')}">
+                                            <span th:if="${turno !=null}" th:text="${turno.fechaInicio}"></span>
+                                        
+                                        </div>
+                                        
+                                        <a th:if="${turno != null and turno.reservado == true}" th:href="@{'/ver-turno/' + ${turno.id}}">Ver turno</a>
+>>>>>>> c08482c86cdbff624e01fa74309e7688b7a87dc0
                                     </div>
                                 </td>
                             </tr>

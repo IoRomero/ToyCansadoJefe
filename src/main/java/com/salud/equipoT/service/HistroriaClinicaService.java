@@ -34,10 +34,6 @@ public class HistroriaClinicaService {
         return historiaClinicaRepository.findById(id).orElse(null);
     }
 
-    public void guardarHistoriaClinica(HistoriaClinica historiaClinica) {
-        historiaClinicaRepository.save(historiaClinica);
-    }
-
     public void eliminarHistoriaClinica(Long id) {
         historiaClinicaRepository.deleteById(id);
     }

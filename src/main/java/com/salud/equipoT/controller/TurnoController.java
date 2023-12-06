@@ -2,6 +2,10 @@ package com.salud.equipoT.controller;
 
 import com.salud.equipoT.entidad.Doctor;
 import com.salud.equipoT.entidad.Turno;
+<<<<<<< HEAD
+=======
+import com.salud.equipoT.repository.TurnoRepository;
+>>>>>>> c08482c86cdbff624e01fa74309e7688b7a87dc0
 import com.salud.equipoT.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +27,7 @@ public class TurnoController {
   @Autowired
   DoctorService doctorServicio = new DoctorService();
 
+<<<<<<< HEAD
   /*
    * @GetMapping("/elegir")
    * public String elegirDoctor(ModelMap modelo) {
@@ -44,6 +49,28 @@ public class TurnoController {
     int[] horariosAtencion = { 8, 9, 10, 11, 15, 18, 19 };
 
     Turno[][] turnero = turnoServicio.generarTurnos(1096L, "07/10/1990", diasAtencion, horariosAtencion);
+=======
+// @GetMapping("/elegir")
+//  public String elegirDoctor(ModelMap modelo){
+//    
+//    Doctor doctor = doctorServicio.crearDoctor(1096L, "Juan");
+//    
+//    modelo.put("doctor", doctor);
+//    
+//    
+//    return "elegirDoctor";
+//  }
+
+  
+  @GetMapping("/generar")
+  public String turneroGenerar(ModelMap modelo) throws Exception {
+
+
+    int[] diasAtencion = {1, 3, 4, 5};
+    int[] horariosAtencion = {8, 9, 10, 11, 15, 18, 19};
+
+    Turno[][] turnero = turnoServicio.generarTurnos(1L, "07/10/1990", diasAtencion, horariosAtencion);
+>>>>>>> c08482c86cdbff624e01fa74309e7688b7a87dc0
 
     modelo.put("turnero", turnero);
 
@@ -71,7 +98,14 @@ public class TurnoController {
       e.printStackTrace();
     }
 
+<<<<<<< HEAD
     return "index";
   }
 
+=======
+    return "redirect:/";
+  }
+
+
+>>>>>>> c08482c86cdbff624e01fa74309e7688b7a87dc0
 }

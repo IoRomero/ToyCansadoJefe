@@ -38,6 +38,19 @@ public class TurnoService {
     return turno;
 
   }
+<<<<<<< HEAD
+=======
+  
+  /*@Transactional
+  private void sacarTurno(Paciente paciente, Disponibilidad disponibilidad){
+      Turno turno = new Turno();
+      turno.setDisponibilidad(disponibilidad);
+      turno.setPaciente(paciente);
+      turno.setBaja(false);
+
+      turnoRepository.save(turno);
+  }*/
+>>>>>>> c08482c86cdbff624e01fa74309e7688b7a87dc0
 
   @Transactional
   public void modificarTurno(Long turnoId, boolean reservado) throws Exception {
@@ -112,18 +125,30 @@ public class TurnoService {
       diaDeLaSemana++;
     }
 
+<<<<<<< HEAD
     doctor.setTurnos(calendario);
 
     System.out.println(doctor);
 
     try {
+=======
+  //  doctor.setTurnos(calendario);
+
+    System.out.println(doctor);
+
+  /* try {
+>>>>>>> c08482c86cdbff624e01fa74309e7688b7a87dc0
       doctorServicio.modificarDoctor(doctor.getMatricula());
 
     } catch (Exception e) {
 
       e.printStackTrace();
 
+<<<<<<< HEAD
     }   
+=======
+    } */ 
+>>>>>>> c08482c86cdbff624e01fa74309e7688b7a87dc0
 
 
 //    for (int i = 0; i < 7; i++) {
@@ -141,7 +166,11 @@ public class TurnoService {
 
     Doctor doctor = doctorServicio.getOne(DoctorId);
 
+<<<<<<< HEAD
     List<Turno> calendarioDoctor = doctor.getTurnos();
+=======
+    List<Turno> calendarioDoctor = doctor.getTurnosCreados();
+>>>>>>> c08482c86cdbff624e01fa74309e7688b7a87dc0
 
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate fecha = LocalDate.parse(fechaInicial, formato); // Convertir LocalDate a Date si es necesario (Java 8 y versiones posteriores)

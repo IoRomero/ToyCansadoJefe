@@ -1,14 +1,14 @@
 package com.salud.equipoT.entidad;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -17,27 +17,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "consulta")
-public class Consulta {
+@Table(name = "diaatencion")
+public class DiaAtencion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    private String diagnostico;
-    private String tratamiento;
-    private String motivoConsulta;
-
+    private String dia;
     @ManyToOne
-    @JoinColumn(name = "doctor", referencedColumnName = "id")
+    @JoinColumn(name = "doctor_id")
     private Doctor doctor;
-    @ManyToOne
-    private Paciente paciente;
-    @OneToOne
-    private Turno turno;
-
-    @JoinColumn(name= "hitoria_clinica_id" , referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private HistoriaClinica historiaClinica;
+    
 }

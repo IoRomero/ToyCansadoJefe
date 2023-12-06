@@ -20,4 +20,6 @@ Optional<Especializacion> findById(String id);
     @Query("UPDATE Especializacion p SET p.nombre = :nombre WHERE p.id = :id")
     void    editarEspecializacion(@Param("id") String id,
             @Param("nombre") String nombre);
+
+
 }

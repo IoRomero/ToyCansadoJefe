@@ -24,11 +24,11 @@ public class HistoriaClinica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @OneToOne()
     @JoinColumn(name = "paciente_id", referencedColumnName = "id", nullable = false)
     private Paciente paciente;
 
-    @JoinColumn(name = "consultas_id", referencedColumnName = "id")
     @OneToMany()
     private List<Consulta> consultas;
 

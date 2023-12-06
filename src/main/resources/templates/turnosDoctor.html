@@ -32,12 +32,13 @@
 
                         <tbody>
                             <tr th:each="row : ${turnero}"> <!-- Iterar sobre las filas -->
-                                <td th:each="turno : ${row}"> <!-- Iterar sobre las disponibilidades de cada fila -->
+                                <td th:each="turno : ${row}"> <!-- Iterar sobre los turnos de cada fila -->
                                     <div th:class="contenedorBurbuja">
-                                        <div th:class="${turno.disponible == true} ? 'burbuja burbujaDisponible' : 'burbuja'">
+                                        <div th:class="${turno.disponible == true and turno.reservado != true ? 'burbuja burbujaDisponible' 
+                                             : (turno.reservado != null and turno.reservado ? 'burbuja burbujaReservada' : 'burbuja')}">
                                             <span th:text="${#dates.format(turno.fechaInicio, 'H:mm') + 'h'}"></span>
                                         </div>
-                                        <input th:if="${turno.disponible == true}" type="radio" name="turnoId" th:value="${turno.id}">
+                                        <a th:if="${turno.reservado == true}" th:href="@{'/ver-turno/' + ${turno.id}}">Ver turno</a>
                                     </div>
                                 </td>
                             </tr>

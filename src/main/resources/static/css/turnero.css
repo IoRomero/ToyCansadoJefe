@@ -1,19 +1,27 @@
 .burbuja {
     padding: 5px;
-    border-radius: 30%; /* Para crear la forma de burbuja */
-    border: 1px solid #ccc; /* Borde de la burbuja */
-    width: 100px; /* Tamaño de la burbuja */
-    height: 30px; /* Tamaño de la burbuja */
+    border-radius: 30%;
+    /* Para crear la forma de burbuja */
+    border: 1px solid #ccc;
+    /* Borde de la burbuja */
+    width: 100px;
+    /* Tamaño de la burbuja */
+    height: 30px;
+    /* Tamaño de la burbuja */
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0.5px; /* Espacio entre burbujas */
-    text-align: center; /* Alinear texto horizontalmente */
-    line-height: 50px; /* Alinear texto verticalmente */
+    margin: 0.5px;
+    /* Espacio entre burbujas */
+    text-align: center;
+    /* Alinear texto horizontalmente */
+    line-height: 50px;
+    /* Alinear texto verticalmente */
 }
 
 .burbuja span {
-    font-size: 14px; /* Tamaño del texto dentro de la burbuja */
+    font-size: 14px;
+    /* Tamaño del texto dentro de la burbuja */
 }
 
 .centered {
@@ -24,19 +32,28 @@
 }
 
 table {
-    background-color: #f2f2f2; /* Color de fondo gris */
+    background-color: #f2f2f2;
+    /* Color de fondo gris */
 }
 
-.table-bordered td, .table-bordered th {
-    border: 0; /* Eliminar bordes de la tabla */
+.table-bordered td,
+.table-bordered th {
+    border: 0;
+    /* Eliminar bordes de la tabla */
 }
 
 .burbujaDisponible {
-    background-color: green; /* Color rojo para burbujas ocupadas */
+    background-color: green;
+    /* Color rojo para burbujas ocupadas */
 }
 
 .contenedorBurbuja {
     display: flex;
     align-items: center;
 
+}
+
+.burbujaReservada {
+    background-color: red;
+    /* Color rojo para burbujas reservadas */
 }

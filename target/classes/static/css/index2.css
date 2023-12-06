@@ -1,0 +1,45 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Montserrat" sans-serif;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    font-family: "Montserrat" sans-serif;
+  }
+  
+  .carousel-container {
+    width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  
+  .carousel-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .carousel-item {
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+
+
+ 
+  body, #carouselNista {
+    width: 100%;
+}
+
+.carousel-container {
+    width: 100%;
+}

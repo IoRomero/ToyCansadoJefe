@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-EquipoTApplication<equipoT>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.salud.equipoT.EquipoTApplication",
+      "projectName": "equipoT",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

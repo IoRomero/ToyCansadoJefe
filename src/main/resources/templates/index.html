@@ -34,7 +34,7 @@
                 <div class="collapse navbar-collapse elementosNav" id="navbarNavDropdown">
                     <ul class="navbar-nav ms-auto elementos">
                         <li class="nav-item dropdown">
-                            <a sec:authorize="!isAuthenticated()" class="dropdown-item" href="/login" >Login</a>
+                            <a sec:authorize="!isAuthenticated()" class="nav-link dropdown" href="/login" >Login</a>
                         </li>
                         <li class="nav-item dropdown">
                             
@@ -61,16 +61,11 @@
                                 <li><a class="dropdown-item" th:href="@{/obrasocial/lista}">Listar Obras Sociales</a></li>
                             </ul>
                         </li>
-                        <li sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown" href="/especializacion/lista" id="navbarDropdown2" aria-expanded="false">
                                 Especializaciones
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                                <li><a class="dropdown-item" th:href="@{/especializacion/registrar}">Crear Especialización</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" th:href="@{/especializacion/lista}">Listar Especializaciones</a></li>
-                            </ul>
+                          
                         </li>
 
                         <li sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')" class="nav-item dropdown">

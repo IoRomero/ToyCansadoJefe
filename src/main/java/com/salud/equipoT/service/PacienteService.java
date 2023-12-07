@@ -17,11 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.salud.equipoT.entidad.Consulta;
+import com.salud.equipoT.entidad.Doctor;
 import com.salud.equipoT.entidad.Imagen;
 import com.salud.equipoT.entidad.ObraSocial;
 import com.salud.equipoT.entidad.Paciente;
 import com.salud.equipoT.enums.Rol;
 import com.salud.equipoT.excepciones.MiException;
+import com.salud.equipoT.repository.DoctorRepository;
 import com.salud.equipoT.repository.ObraSocialRepository;
 import com.salud.equipoT.repository.PacienteRepository;
 
@@ -34,7 +36,8 @@ public class PacienteService implements UserDetailsService{
     private ObraSocialRepository obraSocialRepository;
     @Autowired
     private ImagenService imagenService;
-    
+    @Autowired
+    private DoctorRepository doctorRepository;
     @Transactional
     public void crearPaciente(Long dni, String nombre, String email, String password,String password2, Long obraSocialId,MultipartFile imagen) throws Exception{
     
@@ -139,24 +142,31 @@ public class PacienteService implements UserDetailsService{
     }
 
 
-    @Override
+     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    
-    Paciente paciente = pacienteRepository.findByEmail(email);
+        // Buscar el email en la tabla de doctores
+        Doctor doctor = doctorRepository.buscarDoctorPorEmail(email);
 
-    if (paciente != null){
-        
-        List<GrantedAuthority> permisos = new ArrayList();
-        
-        GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+ paciente.getRol().toString());
+        // Si no se encuentra en la tabla de doctores, buscar en la tabla de pacientes
+        if (doctor == null) {
+            Paciente paciente = pacienteRepository.findByEmail(email);
+            if (paciente != null) {
+                List<GrantedAuthority> permisos = new ArrayList<>();
+                GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + paciente.getRol().toString());
+                permisos.add(p);
+                return new User(paciente.getEmail(), paciente.getPassword(), permisos);
+            }
+        }
 
-        permisos.add(p);
-
-        return new User(paciente.getEmail(),paciente.getPassword(),permisos);
-    }else{
-        return null;
+        if (doctor != null) {
+            List<GrantedAuthority> permisos = new ArrayList<>();
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + doctor.getRol().toString());
+            permisos.add(p);
+            return new User(doctor.getEmail(), doctor.getPassword(), permisos);
+        } else {
+            throw new UsernameNotFoundException("Usuario no encontrado con el email: " + email);
+        }
     }
+}
     
-    }
-    
-}   
+

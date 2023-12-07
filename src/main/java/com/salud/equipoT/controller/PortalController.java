@@ -40,7 +40,7 @@ public class PortalController {
     @GetMapping("/login")
     public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(auth.getPrincipal().toString());
+
         if (auth.getPrincipal() == "anonymousUser") {
 
               // Si el usuario no tiene roles o no está autenticado, muestra la página de login
@@ -50,6 +50,7 @@ public class PortalController {
            // Si el usuario está autenticado y tiene roles asignados, redirige a la página de inicio
         return "redirect:/inicio";
     }
+
 
     @GetMapping("/perfil")
     public String perfil(ModelMap model){

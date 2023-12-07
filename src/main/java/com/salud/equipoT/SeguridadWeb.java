@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.salud.equipoT.service.DoctorService;
 import com.salud.equipoT.service.PacienteService;
 
 @Configuration
@@ -16,6 +17,8 @@ import com.salud.equipoT.service.PacienteService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SeguridadWeb extends WebSecurityConfigurerAdapter {
 
+        @Autowired
+        public DoctorService doctorService;
     @Autowired
     public PacienteService pacienteService;
 
@@ -24,8 +27,12 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
     
         auth.userDetailsService(pacienteService)
             .passwordEncoder(new BCryptPasswordEncoder());
-
+            
+        auth.userDetailsService(doctorService)
+                .passwordEncoder(new BCryptPasswordEncoder());
     }
+    
+   
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http

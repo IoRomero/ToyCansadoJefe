@@ -5,8 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,16 +22,21 @@ import com.salud.equipoT.entidad.DiaAtencion;
 import com.salud.equipoT.entidad.Doctor;
 import com.salud.equipoT.entidad.Especializacion;
 import com.salud.equipoT.entidad.Imagen;
+import com.salud.equipoT.entidad.Paciente;
 import com.salud.equipoT.entidad.Turno;
 import com.salud.equipoT.enums.Rol;
 import com.salud.equipoT.excepciones.MiException;
 import com.salud.equipoT.repository.DoctorRepository;
 import com.salud.equipoT.repository.EspecializacionRepository;
+import com.salud.equipoT.repository.PacienteRepository;
 
 
 
 @Service
-public class DoctorService {
+public class DoctorService implements UserDetailsService{
+
+    @Autowired
+    private PacienteRepository pacienteRepository;
     @Autowired
     private DoctorRepository doctorRepository;
     @Autowired
@@ -217,6 +228,9 @@ public class DoctorService {
     public Doctor doctorPorId(Long id){
         return doctorRepository.getOne(id);
     }
+    public Doctor findByEmail(String email){
+       return doctorRepository.buscarDoctorPorEmail(email);
+    }
     public void borrarDoctor(Long id){
         doctorRepository.deleteById(id);;
     }
@@ -251,4 +265,30 @@ public class DoctorService {
       return doctorRepository.listarTurnosCreados(id);
     }
 
+  @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        // Buscar el email en la tabla de doctores
+        Doctor doctor = doctorRepository.buscarDoctorPorEmail(email);
+
+        // Si no se encuentra en la tabla de doctores, buscar en la tabla de pacientes
+        if (doctor == null) {
+            Paciente paciente = pacienteRepository.findByEmail(email);
+            if (paciente != null) {
+                List<GrantedAuthority> permisos = new ArrayList<>();
+                GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + paciente.getRol().toString());
+                permisos.add(p);
+                return new User(paciente.getEmail(), paciente.getPassword(), permisos);
+            }
+        }
+
+        if (doctor != null) {
+            List<GrantedAuthority> permisos = new ArrayList<>();
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + doctor.getRol().toString());
+            permisos.add(p);
+            return new User(doctor.getEmail(), doctor.getPassword(), permisos);
+        } else {
+            throw new UsernameNotFoundException("Usuario no encontrado con el email: " + email);
+        }
+    }
 }
+

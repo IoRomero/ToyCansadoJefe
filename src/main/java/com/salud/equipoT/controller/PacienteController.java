@@ -75,9 +75,9 @@ public class PacienteController {
         return "paciente_list";
     }
     @PostMapping("/modificar/{id}")
-    public String modificar(Long dni, String nombre, String email, String password, String password2, String obraSocial,MultipartFile imagen, ModelMap modelo){
+    public String modificar(Long dni, String nombre, String email, String password, String password2, Long obraSocialId,MultipartFile imagen, ModelMap modelo){
         try {
-            pacienteService.editarPaciente(dni, nombre, email, password, password2, obraSocial,imagen);
+            pacienteService.editarPaciente(dni, nombre, email, password, password2, obraSocialId,imagen);
             return "redirect:../lista";
         } catch (Exception ex) {
             modelo.put("obrasociales",pacienteService.buscarPaciente(dni));

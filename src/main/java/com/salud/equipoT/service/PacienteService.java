@@ -79,14 +79,14 @@ public class PacienteService implements UserDetailsService{
 
     }
     @Transactional
-    public void editarPaciente(Long dni, String nombre, String email, String password, String password2, String obraSocial,MultipartFile imagen) throws Exception{
+    public void editarPaciente(Long dni, String nombre, String email, String password, String password2, Long obraSocialId,MultipartFile imagen) throws Exception{
         validar(nombre, email, password, password2);
 
 
             Imagen imagenPercistir = imagenService.actualizar(imagen, buscarPaciente(dni).getImagen().getId() );
        
         
-            pacienteRepository.editarPaciente(dni, nombre, email, password, obraSocial,imagenPercistir);
+            pacienteRepository.editarPaciente(dni, nombre, email, password, obraSocialId,imagenPercistir);
         }
 
    

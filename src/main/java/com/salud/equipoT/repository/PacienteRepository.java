@@ -31,12 +31,12 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
     List<Paciente> findByObraSocial(@Param("obraSocialId") Long obraSocialId);
     
     @Modifying
-    @Query("UPDATE Paciente p SET p.nombre = :nombre, p.email = :email, p.password = :password, p.obraSocial = :obraSocial, p.imagen = :imagen WHERE p.dni = :dni")
+    @Query("UPDATE Paciente p SET p.nombre = :nombre, p.email = :email, p.password = :password, p.obraSocial.id = :obraSocial, p.imagen = :imagen WHERE p.dni = :dni")
     void    editarPaciente(@Param("dni") Long dni,
             @Param("nombre") String nombre,
             @Param("email") String email,
             @Param("password") String password,
-            @Param("obraSocial") String obraSocial,
+            @Param("obraSocial") Long obraSocial,
             @Param("imagen") Imagen imagen);
 
 

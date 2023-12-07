@@ -38,7 +38,10 @@ function toggleSidebar() {
     var perfilInfo = document.getElementById("perfilInfo");
   
     var editarForm = document.getElementById("editarForm");
+    
     // Manejador de evento clic para el botón de perfil
+
+
     perfilButton.addEventListener("click", function (event) {
       event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
 
@@ -71,8 +74,7 @@ function toggleSidebar() {
         // Aquí podrías obtener los datos del paciente para prellenar el formulario de edición
         // Supongamos que ya tienes los datos en variables como nombre, email, etc.
 
-        // Llenar los campos del formulario con los datos actuales del paciente
-        document.getElementById("nombre").value = "Nombre del paciente"; // Reemplazar con el valor real
+        // Llenar los campos del formulario con los datos actuales del paciente // Reemplazar con el valor real
         // Otros campos del formulario
 
         // Mostrar el formulario de edición y ocultar el div del perfil

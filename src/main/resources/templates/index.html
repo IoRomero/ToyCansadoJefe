@@ -49,17 +49,10 @@
                             </ul>
                         </li>
                         <li sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                Obra Sociales
+                            <a class="nav-link dropdown" href="/obrasocial/lista" id="navbarDropdown1" aria-expanded="false">
+                                Obras Sociales
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                                <li><a class="dropdown-item" th:href="@{/obrasocial/registrar}">Crear Obra Social</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" th:href="@{/obrasocial/lista}">Listar Obras Sociales</a></li>
-                            </ul>
+                            
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown" href="/especializacion/lista" id="navbarDropdown2" aria-expanded="false">

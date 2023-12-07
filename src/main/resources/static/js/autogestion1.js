@@ -37,10 +37,15 @@ function toggleSidebar() {
     var perfilButton = document.getElementById("perfilButton");
     var perfilInfo = document.getElementById("perfilInfo");
   
+    var editarForm = document.getElementById("editarForm");
     // Manejador de evento clic para el botón de perfil
     perfilButton.addEventListener("click", function (event) {
       event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
-  
+
+  // Si el formulario de edición está visible, ocultarlo
+  if (editarForm.style.display === "block") {
+    editarForm.style.display = "none";
+  }
       // Aquí podrías hacer una solicitud AJAX para obtener los datos del paciente
       // Suponiendo que ya tienes los datos, puedes simular su visualización
       // Cambiar el estilo de visualización del div del perfil al hacer clic en el botón
@@ -50,6 +55,33 @@ function toggleSidebar() {
       document.getElementById("nombreUsuario").innerText = "Nombre del paciente";
       document.getElementById("correoElectronico").innerText = "correo@example.com";
       document.getElementById("edad").innerText = "30 años";
+      
     })
   })
-  ;
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Obtener referencia al botón de editar y al formulario de edición
+    var editarButton = document.getElementById("editarButton");
+    var editarForm = document.getElementById("editarForm");
+
+    // Manejador de evento clic para el botón de editar
+    editarButton.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevenir el comportamiento predeterminado del botón
+
+        // Aquí podrías obtener los datos del paciente para prellenar el formulario de edición
+        // Supongamos que ya tienes los datos en variables como nombre, email, etc.
+
+        // Llenar los campos del formulario con los datos actuales del paciente
+        document.getElementById("nombre").value = "Nombre del paciente"; // Reemplazar con el valor real
+        // Otros campos del formulario
+
+        // Mostrar el formulario de edición y ocultar el div del perfil
+        editarForm.style.display = "block";
+        perfilInfo.style.display = "none";
+
+      
+    })
+})
+;
+
+  

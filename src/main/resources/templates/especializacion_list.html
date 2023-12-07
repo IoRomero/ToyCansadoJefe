@@ -105,7 +105,6 @@
             <table class="table table-dark">
                 <thead>
                     <tr>
-                        <th scope="col">Id de la Especializacion</th>
                         <th scope="col">Nombre la Especializacion</th>
                         <th scope="col">Acciones</th>
 
@@ -114,7 +113,6 @@
                 <tbody> 
                     
                     <tr th:each="especializacion, iterStat : ${especializaciones}">
-                        <th scope="row" th:text="${especializacion.id}"></th>
                         <td th:text="${especializacion.nombre}"></td>
                         
                         <td>

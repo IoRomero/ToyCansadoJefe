@@ -63,8 +63,44 @@
             <p>imagen: <img th:if="${paciente.imagen != null}" class="logo img-fluid"
               th:src="@{/imagen/perfil/__${paciente.dni}__}" style="max-width: 100px; max-height: 100px;"></p>
 
-              <button class="btn btn-primary" th:ref="${/paciente/editar}"
+              <button class="btn btn-primary" id="editarButton">Editar campos</button>
+              
+              
           </div>
+          <form th:action="@{/paciente/modificar/__${paciente.dni}__}" method="POST" enctype="multipart/form-data" id="editarForm" style="display: none;">
+            <!-- Campo oculto para enviar el ID del paciente -->
+            <input type="hidden" id="dni" name="dni">
+            <!-- Campos para editar -->
+            <p><label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required></p>
+            <!-- Otros campos para editar -->
+            <p><label for="nombre">Email:</label>
+            <input type="email" id="email" name="email" required></p>
+               <!-- Otros campos para editar -->
+               <p><label for="nombre">Password:</label>
+               <input type="password" id="password" name="password" required></p>
+                  <!-- Otros campos para editar -->
+                  <p><label for="nombre">Password2:</label>
+            <input type="password" id="password2" name="password2" required></p>
+            <!-- Otros campos para editar -->
+            <p><select class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required
+              id="obraSocialId" name="obraSocialId">
+              <option th:value=null>Seleccionar ObraSocial</option>
+              <option th:each="obraSocial :${obrasociales}" 
+                th:value="${obraSocial.id}"
+               th:text="${obraSocial.nombre}">
+              </option>
+              <option th:value=null>No tengo</option>
+
+            </select></p>
+               <!-- Otros campos para editar -->
+               <p><label for="nombre">imagen:</label>
+               <input type="file" id="imagen" name="imagen" required></p>
+
+            
+        
+            <input type="submit" value="Guardar cambios">
+        </form>
         </div>
       </div>
       

@@ -1,5 +1,7 @@
 package com.salud.equipoT.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,12 +15,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.salud.equipoT.entidad.ObraSocial;
 import com.salud.equipoT.entidad.Paciente;
+import com.salud.equipoT.service.ObraSocialService;
 import com.salud.equipoT.service.PacienteService;
 
 @Controller("/")
 public class PortalController {
-
+@Autowired
+private ObraSocialService obraSocialService;
     @Autowired
     private PacienteService pacienteService;
     public String index() {
@@ -61,9 +66,9 @@ public class PortalController {
             // Obtén los detalles del usuario
             UserDetails userDetails = (UserDetails) auth.getPrincipal();
             Paciente paciente = pacienteService.findByEmail(userDetails.getUsername());
-            
+            List<ObraSocial> obraSociales = obraSocialService.listarObraSociales();
             model.put("paciente", paciente);
-
+            model.put("obrasociales", obraSociales);
         return "perfil.html";
     }else return "login.html";
 

@@ -77,8 +77,13 @@ public class PacienteController {
     @PostMapping("/modificar/{id}")
     public String modificar(Long dni, String nombre, String email, String password, String password2, Long obraSocialId,MultipartFile imagen, ModelMap modelo){
         try {
-            pacienteService.editarPaciente(dni, nombre, email, password, password2, obraSocialId,imagen);
-            return "redirect:../lista";
+            if (imagen != null && !imagen.isEmpty()) {
+                // Si la imagen no es nula y no está vacía, procede con la edición del paciente con la imagen
+                pacienteService.editarPaciente(dni, nombre, email, password, password2, obraSocialId, imagen);
+            } else {
+                // Si la imagen es nula o está vacía, edita al paciente sin imagen
+                pacienteService.editarPacienteSinImagen(dni, nombre, email, password, password2, obraSocialId);
+            }return "redirect:../lista";
         } catch (Exception ex) {
             modelo.put("obrasociales",pacienteService.buscarPaciente(dni));
             modelo.put("error", ex.getMessage());

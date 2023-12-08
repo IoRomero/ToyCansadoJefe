@@ -1,15 +1,24 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  background-image: url("../Img/doctor.jpg");
+  background-size: cover;
+  /* Ajusta el tamaño de la imagen para cubrir completamente el fondo */
+  background-position: center;
+  /* Centra la imagen en el fondo */
+  background-repeat: no-repeat;/
+}
   .cont-logo {
     font-family: "Montserrat", sans-serif;
     font-weight: 300;
     width: 250px;
     height: 4.45rem;
     position: relative;
-    padding: 0.35rem 1rem 0.3rem 1.64rem;
-    background-color: #ffffff;
+    padding: 0.35rem 1rem 0.3rem 1rem;
+    background-color: #4a4a4a;
     color: #000000;
     text-decoration: none;
   }
-  
+
   .cont-logo h3 {
     display: block;
     position: absolute;
@@ -29,7 +38,7 @@
     position: relative;
     max-width: 250px;
     height: 100vh;
-    background: #ffffff;
+    background: #939393;
     box-shadow: #ededed 0px 0px 10px 0px;
   }
   

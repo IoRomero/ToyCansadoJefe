@@ -72,14 +72,21 @@
                                 <li><a class="dropdown-item" th:href="@{/paciente/lista}">Listar Paciente</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')" class="dropdown-item" href="/logout" >Cerrar Sesión</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" id="navbarDropdown4" role="button">
-                                Contacto
+                        
+                        <li sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')" class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Perfil
                             </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown3">
+                                <li><a class="dropdown-item" th:href="@{/perfil}">Perfil</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-item" href="/logout" >Cerrar Sesión</a>
+                                </li>                          
+                            </ul>
                         </li>
+    
                     </ul>
                 </div>
             </nav>

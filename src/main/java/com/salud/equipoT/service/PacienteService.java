@@ -86,10 +86,18 @@ public class PacienteService implements UserDetailsService{
             Imagen imagenPercistir = imagenService.actualizar(imagen, buscarPaciente(dni).getImagen().getId() );
        
         
-            pacienteRepository.editarPaciente(dni, nombre, email, password, obraSocialId,imagenPercistir);
+            pacienteRepository.editarPaciente(dni, nombre, email, new BCryptPasswordEncoder().encode(password), obraSocialId,imagenPercistir);
         }
+        
+    @Transactional
+    public void editarPacienteSinImagen(Long dni, String nombre, String email, String password, String password2, Long obraSocialId) throws Exception{
+        validar(nombre, email, password, password2);
 
-   
+
+       
+        
+            pacienteRepository.editarPacienteSinImagen(dni, nombre, email, new BCryptPasswordEncoder().encode(password), obraSocialId);
+        }
 
     @Transactional
     public void eliminarPaciente(Paciente paciente) {

@@ -32,12 +32,17 @@
           <div class="cont-menu">
             <!-- Contenido de la barra lateral -->
             <div class="cont-logo">
-              <a href="/index"><img src="/Img/logo.png" alt="Logo SaludAPP" class="w-10 h-10 mr-2 cursor-pointer"></a>
-              <h3 class="text-black text-2xl font-bold">SaludAPP</h3>
-              <h5>Autogestion</h5>
+              
+              <a href="/"><img src="/Img/logo.png" alt="Logo SaludAPP" class="w-10 h-10 mr-2 cursor-pointer"style="display: inline-block;"></a>
+              
+              <h4 class="text-black text-2xl font-bold" style="display: inline-block; vertical-align: middle;">SaludAPP</h4>
+            
             </div>
+            <br>
+            <h5>Autogestion</h5>
             <nav class="mt-3">
               <!-- Botones de la barra lateral -->
+            
               <a href="#" class="nav-link" id="perfilButton">Perfil</a>
               <a href="#" sec:authorize="hasAnyRole('ROLE_DOCTOR')" class="nav-link">Pacientes</a>
               <a href="/turnero/reservar" sec:authorize="hasAnyRole('ROLE_PACIENTE')"class="nav-link" id="turnos">Sacar Turno</a>
@@ -78,28 +83,38 @@
             <input type="email" id="email" name="email" th:value="${paciente.email}"required></p>
                <!-- Otros campos para editar -->
                <p><label for="nombre">Password:</label>
-               <input type="password" id="password" name="password" th:value="${paciente.email}"required></p>
+               <input type="password" id="password" name="password" th:value="${paciente.password}"required></p>
                   <!-- Otros campos para editar -->
                   <p><label for="nombre">Password2:</label>
-            <input type="password" id="password2" name="password2" th:value="${paciente.email}"required></p>
+            <input type="password" id="password2" name="password2" th:value="${paciente.password}"required></p>
             <!-- Otros campos para editar -->
-            <p><select class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required
+            <p><select class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
               id="obraSocialId"name="obraSocialId" >
-            <option th:text="${paciente.obraSocial.nombre}"
+            <option th:if="${paciente.obraSocial != null}"
+            th:text="${paciente.obraSocial.nombre}"
             th:value="${paciente.obraSocial.id}"></option>
+            <option th:if="${paciente.obraSocial == null}"th:value=null>No tengo</option>
               <option th:each="obraSocial :${obrasociales}" 
-              th:unless="${obraSocial.nombre == paciente.obraSocial.nombre}"  
+              th:unless="${paciente.obraSocial !=null and obraSocial.nombre == paciente.obraSocial.nombre}"  
               th:value="${obraSocial.id}"
                th:text="${obraSocial.nombre}">
               </option>
-              <option th:value=null>No tengo</option>
+              
 
             </select></p>
                <!-- Otros campos para editar -->
-               <p><label for="nombre">imagen:</label>
-               <input type="file" id="imagen" name="imagen" th:value="${paciente.imagen}" required></p>
-
-            
+               <p>
+                <label for="imagen">Imagen:</label>
+                <input type="file" id="imagen" name="imagen" accept="image/*">
+                <span th:if="${paciente.imagen != null}">
+                    <img th:src="@{/imagen/perfil/__${paciente.dni}__}" 
+                         style="max-width: 100px; max-height: 100px;" />
+                </span>
+                <span th:unless="${paciente.imagen != null}">
+                    <img src="/src/main/resources/static/Img/incognito.webp" 
+                         style="max-width: 100px; max-height: 100px;" />
+                </span>
+            </p>
         
             <input type="submit" value="Guardar cambios">
         </form>

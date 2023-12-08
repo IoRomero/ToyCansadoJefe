@@ -59,12 +59,18 @@ public class TurnoService {
 
       turno.setReservado(reservado);
 
-      System.out.println(turno);
 
       turnoRepositorio.save(turno);
     }
   }
 
+  @Transactional
+  public void eliminarTurno(Long turnoId){
+    turnoRepositorio.deleteById(turnoId);
+  }
+
+
+  
   public Turno[][] generarTurnos(Long DoctorId, String fechaInicial, int[] diasDeAtencion, int[] horariosDeAtencion) {
 
     Doctor doctor = doctorServicio.getOne(DoctorId);

@@ -41,4 +41,15 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
 
     List<Paciente> findAll();
+
+    
+@Modifying
+    @Query("UPDATE Paciente p SET p.nombre = :nombre, p.email = :email, p.password = :password, p.obraSocial.id = :obraSocial WHERE p.dni = :dni")
+    void    editarPacienteSinImagen(@Param("dni") Long dni,
+            @Param("nombre") String nombre,
+            @Param("email") String email,
+            @Param("password") String password,
+            @Param("obraSocial") Long obraSocial);
+
+
 }

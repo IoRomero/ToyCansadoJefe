@@ -24,70 +24,8 @@
 
     <body>
        <div class="container-fluid ">
-        <nav class="navbar navbar-expand-lg navBar bg-green-600">
-            <div class="containerImg">
-                <a href="/" class="navbar-brand d-flex align-items-center">
-                    <img class="logo w-8 h-8 mr-2" src="/Img/logo0.png" alt="Logo SaludApp">
-                    <span class="text-white text-lg font-bold">SaludAPP</span>
-                </a>
-            </div>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse elementosNav" id="navbarNavDropdown">
-                <ul class="navbar-nav ms-auto elementos">
-                    <li class="nav-item dropdown">
-                        <a sec:authorize="!isAuthenticated()" class="nav-link dropdown" href="/login" >Login</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        
-                        <a sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')" class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Doctores
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                            <li><a class="dropdown-item" th:href="@{/doctor/registrar}">Crear Doctor</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" th:href="@{/doctor/lista}">Listar Doctores</a></li>
-                        </ul>
-                    </li>
-                    <li sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')" class="nav-item dropdown">
-                        <a class="nav-link dropdown" href="/obrasocial/lista" id="navbarDropdown1" aria-expanded="false">
-                            Obras Sociales
-                        </a>
-                        
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown" href="/especializacion/lista" id="navbarDropdown2" aria-expanded="false">
-                            Especializaciones
-                        </a>
-                      
-                    </li>
-
-                    <li sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Pacientes
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                            <li><a class="dropdown-item" th:href="@{/paciente/registrar}">Crear Paciente</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" th:href="@{/paciente/lista}">Listar Paciente</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')" class="dropdown-item" href="/logout" >Cerrar Sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="navbarDropdown4" role="button">
-                            Contacto
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+        
         <div class="container m-5" >
 
             <table class="table table-dark">

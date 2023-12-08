@@ -33,20 +33,20 @@
             <!-- Contenido de la barra lateral -->
             <div class="cont-logo">
               
-              <a href="/"><img src="/Img/logo.png" alt="Logo SaludAPP" class="w-10 h-10 mr-2 cursor-pointer"style="display: inline-block;"></a>
+              <a href="/"><img src="/Img/logo.png" alt="Logo SaludAPP" class="w-10 h-10 mr-2 cursor-pointer"style="display: inline-block;">
+              <h4 class="text-black text-2xl font-bold" style="display: inline-block; vertical-align: middle; margin-top: 10px;color: aliceblue;">SaludAPP</h4>
+              </a>
               
-              <h4 class="text-black text-2xl font-bold" style="display: inline-block; vertical-align: middle;">SaludAPP</h4>
-            
             </div>
             <br>
-            <h5>Autogestion</h5>
+            <h4>Autogestion</h4>
             <nav class="mt-3">
               <!-- Botones de la barra lateral -->
             
-              <a href="#" class="nav-link" id="perfilButton">Perfil</a>
-              <a href="#" sec:authorize="hasAnyRole('ROLE_DOCTOR')" class="nav-link">Pacientes</a>
-              <a href="/turnero/reservar" sec:authorize="hasAnyRole('ROLE_PACIENTE')"class="nav-link" id="turnos">Sacar Turno</a>
-              <a sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')" class="dropdown-item" href="/logout" >Cerrar Sesión</a>
+              <a href="#" class="nav-link" id="perfilButton" style="color: aliceblue;">Perfil</a>
+              <a href="#" sec:authorize="hasAnyRole('ROLE_DOCTOR')" class="nav-link" style="color: aliceblue;">Pacientes</a>
+              <a href="/turnero/reservar" sec:authorize="hasAnyRole('ROLE_PACIENTE')"class="nav-link" id="turnos" style="color: aliceblue;">Sacar Turno</a>
+              <a sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')" class="dropdown-item" href="/logout" style="color: aliceblue;">Cerrar Sesión</a>
             </nav>
             
           </div>

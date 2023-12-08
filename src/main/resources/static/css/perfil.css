@@ -39,7 +39,7 @@ body {
     max-width: 250px;
     height: 100vh;
     background: #939393;
-    box-shadow: #ededed 0px 0px 10px 0px;
+    box-shadow: #454141 0px 0px 10px 0px;
   }
   
   h3,
@@ -67,7 +67,7 @@ body {
   .cont-menu nav a:hover {
     border-left: 5px solid #c7c7c7;
     color: #000000;
-    background: #e1e1e1;
+    background: #000000;
   }
   
   .toggle-btn {
@@ -79,4 +79,7 @@ body {
     border-radius: 15px;
     box-shadow: #ededed 0px 0px 10px 0px;
     transition: all 0.3s ease;
+  }
+  .cont-menu h4 {
+    text-align: center;
   }

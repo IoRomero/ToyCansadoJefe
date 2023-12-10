@@ -1,146 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/perfil.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="../js/autogestion1.js"></script>
+    <title>Autogestion</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/perfil.css">
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,800;1,900&display=swap"
-    rel="stylesheet">
-  <script src="../js/autogestion1.js"></script>
-  <title>Autogestion</title>
-</head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
 
-<body>
-  <div class="container-fluid">
+  <body>
     <div class="container-fluid">
-      <div class="row">
-        <!-- Barra lateral -->
-         <div class="primary">
-          <nav class="naver">
-            <!-- Botón para mostrar/ocultar la barra lateral -->
-            <button class="toggle-btn" id="toggleButton" onclick="toggleSidebar()">&#9776;</button>
-  
-          </nav>
-        </div>
-        <div class="col-md-3" id="sidebar">
-         
-          <div class="cont-menu">
-            <!-- Contenido de la barra lateral -->
-            <div class="cont-logo">
-              
-              <a href="/"><img src="/Img/logo.png" alt="Logo SaludAPP" class="w-10 h-10 mr-2 cursor-pointer"style="display: inline-block;">
-              <h4 class="text-black text-2xl font-bold" style="display: inline-block; vertical-align: middle; margin-top: 10px;color: aliceblue;">SaludAPP</h4>
-              </a>
-              
-            </div>
-            <br>
-            <h4>Autogestion</h4>
-            <nav class="mt-3">
-              <!-- Botones de la barra lateral -->
-            
-              <a href="#" class="nav-link" id="perfilButton" style="color: aliceblue;">Perfil</a>
-              <a href="#" sec:authorize="hasAnyRole('ROLE_DOCTOR')" class="nav-link" style="color: aliceblue;">Pacientes</a>
-              <a href="/turnero/reservar" sec:authorize="hasAnyRole('ROLE_PACIENTE')"class="nav-link" id="turnos" style="color: aliceblue;">Sacar Turno</a>
-              <a sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')" class="dropdown-item" href="/logout" style="color: aliceblue;">Cerrar Sesión</a>
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Barra lateral -->
+          <div class="primary">
+            <nav class="naver">
+              <!-- Botón para mostrar/ocultar la barra lateral -->
+              <button
+                class="toggle-btn"
+                id="toggleButton"
+                onclick="toggleSidebar()"
+              >
+                &#9776;
+              </button>
             </nav>
-            
           </div>
-          
-        </div>
-        
-        <!-- Contenido principal -->
-        <div class="col-md-9">
-          <!-- Aquí puedes mostrar los datos del perfil del paciente -->
-          
-          <div id="perfilInfo" style="display: none;">
-            <h1>Mis Datos</h1>
-            <!-- Usando Thymeleaf para mostrar el nombre de usuario -->
-            <p>Nombre de usuario: <span th:text="${paciente.nombre}"></span></p>
-            <!-- Agrega aquí otros detalles del perfil del paciente -->
-            <p>Correo electrónico: <span th:text="${paciente.email}"></span></p>
-            <!-- <p>Obra Social: <span th:text="${paciente.obrasocial}"></span></p>-->
-            <p>Dni: <span th:text="${paciente.dni}"></span></p>
-            <p>imagen: <img th:if="${paciente.imagen != null}" class="logo img-fluid"
-              th:src="@{/imagen/perfil/__${paciente.dni}__}" style="max-width: 100px; max-height: 100px;"></p>
+          <div class="col-md-3" id="sidebar">
+            <div class="cont-menu">
+              <!-- Contenido de la barra lateral -->
+              <div class="cont-logo">
+                <a href="/"
+                  ><img
+                    src="/Img/logo.png"
+                    alt="Logo SaludAPP"
+                    class="w-10 h-10 mr-2 cursor-pointer"
+                    style="display: inline-block"
+                  />
+                  <h4
+                    class="text-black text-2xl font-bold"
+                    style="
+                      display: inline-block;
+                      vertical-align: middle;
+                      margin-top: 10px;
+                      color: aliceblue;
+                    "
+                  >
+                    SaludAPP
+                  </h4>
+                </a>
+              </div>
+              <br />
+              <h4>Autogestion</h4>
+              <nav class="mt-3">
+                <!-- Botones de la barra lateral -->
 
-              <button class="btn btn-primary" id="editarButton">Editar campos</button>
-              
-              
+                <a
+                  href="#"
+                  class="nav-link"
+                  id="perfilButton"
+                  style="color: aliceblue"
+                  >Perfil</a
+                >
+                <a
+                  href="#"
+                  sec:authorize="hasAnyRole('ROLE_DOCTOR')"
+                  class="nav-link"
+                  style="color: aliceblue"
+                  >Pacientes</a
+                >
+                <a
+                  href="/turnero/reservar"
+                  sec:authorize="hasAnyRole('ROLE_PACIENTE')"
+                  class="nav-link"
+                  id="turnos"
+                  style="color: aliceblue"
+                  >Sacar Turno</a
+                >
+                <button
+                  id="mostrarEspecializaciones"
+                  class="nav-link"
+                  style="color: aliceblue"
+                >
+                  Mostrar Especializaciones
+                </button>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <a
+                  sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')"
+                  class="dropdown-item"
+                  href="/logout"
+                  style="color: aliceblue"
+                  >Cerrar Sesión</a
+                >
+              </nav>
+            </div>
           </div>
-          <form th:action="@{/paciente/modificar/__${paciente.dni}__}" method="POST" enctype="multipart/form-data" id="editarForm" style="display: none;">
-            <!-- Campo oculto para enviar el ID del paciente -->
-            <input type="hidden" id="dni" name="dni" th:value="${paciente.dni}">
-            <!-- Campos para editar -->
-            <p><label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" th:value="${paciente.nombre}" required></p>
-            <!-- Otros campos para editar -->
-            <p><label for="nombre">Email:</label>
-            <input type="email" id="email" name="email" th:value="${paciente.email}"required></p>
-               <!-- Otros campos para editar -->
-               <p><label for="nombre">Password:</label>
-               <input type="password" id="password" name="password" th:value="${paciente.password}"required></p>
+
+          <!--- Lista de Especializaciones-->
+          <div id="especializaciones">
+            <!-- Formulario para mostrar los doctores por especialización -->
+            <div th:each="especializacion : ${especializaciones}">
+              <form
+                method="POST"
+                th:action="@{/doctor/especializacion/__${especializacion.id}__}"
+                onsubmit="mostrarDoctoresPorEspecializacion(event, this)"
+              >
+                <button
+                  type="submit"
+                  class="btn btn-primary mt-2 w-100 text-left"
+                >
+                  <span th:text="${especializacion.nombre}"></span>
+                </button>
+              </form>
+            </div>
+          </div>
+          <div>
+            <div id="doctoresPorEspecializacion" style="display: none">
+              <!-- Aquí se mostrará la lista de doctores por especialización -->
+              <div th:each="doctor : ${doctoresPorEspecializacion}">
+                <button
+                  type="submit"
+                  class="btn btn-primary mt-2 w-100 text-left"
+                >
+                  <span th:text="${doctor.nombre}"></span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <!-- Contenido principal -->
+              <div class="col-md-9">
+                <!-- Aquí puedes mostrar los datos del perfil del paciente -->
+
+                <div id="perfilInfo" style="display: none">
+                  <h1>Mis Datos</h1>
+                  <!-- Usando Thymeleaf para mostrar el nombre de usuario -->
+                  <p>
+                    Nombre de usuario:
+                    <span th:text="${paciente.nombre}"></span>
+                  </p>
+                  <!-- Agrega aquí otros detalles del perfil del paciente -->
+                  <p>
+                    Correo electrónico:
+                    <span th:text="${paciente.email}"></span>
+                  </p>
+                  <!-- <p>Obra Social: <span th:text="${paciente.obrasocial}"></span></p>-->
+                  <p>Dni: <span th:text="${paciente.dni}"></span></p>
+                  <p>
+                    imagen:
+                    <img
+                      th:if="${paciente.imagen != null}"
+                      class="logo img-fluid"
+                      th:src="@{/imagen/perfil/__${paciente.dni}__}"
+                      style="max-width: 100px; max-height: 100px"
+                    />
+                  </p>
+
+                  <button class="btn btn-primary" id="editarButton">
+                    Editar campos
+                  </button>
+                </div>
+                <form
+                  th:action="@{/paciente/modificar/__${paciente.dni}__}"
+                  method="POST"
+                  enctype="multipart/form-data"
+                  id="editarForm"
+                  style="display: none"
+                >
+                  <!-- Campo oculto para enviar el ID del paciente -->
+                  <input
+                    type="hidden"
+                    id="dni"
+                    name="dni"
+                    th:value="${paciente.dni}"
+                  />
+                  <!-- Campos para editar -->
+                  <p>
+                    <label for="nombre">Nombre:</label>
+                    <input
+                      type="text"
+                      id="nombre"
+                      name="nombre"
+                      th:value="${paciente.nombre}"
+                      required
+                    />
+                  </p>
                   <!-- Otros campos para editar -->
-                  <p><label for="nombre">Password2:</label>
-            <input type="password" id="password2" name="password2" th:value="${paciente.password}"required></p>
-            <!-- Otros campos para editar -->
-            <p><select class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-              id="obraSocialId"name="obraSocialId" >
-            <option th:if="${paciente.obraSocial != null}"
-            th:text="${paciente.obraSocial.nombre}"
-            th:value="${paciente.obraSocial.id}"></option>
-            <option th:if="${paciente.obraSocial == null}"th:value=null>No tengo</option>
-              <option th:each="obraSocial :${obrasociales}" 
-              th:unless="${paciente.obraSocial !=null and obraSocial.nombre == paciente.obraSocial.nombre}"  
-              th:value="${obraSocial.id}"
-               th:text="${obraSocial.nombre}">
-              </option>
-              
+                  <p>
+                    <label for="nombre">Email:</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      th:value="${paciente.email}"
+                      required
+                    />
+                  </p>
+                  <!-- Otros campos para editar -->
 
-            </select></p>
-               <!-- Otros campos para editar -->
-               <p>
-                <label for="imagen">Imagen:</label>
-                <input type="file" id="imagen" name="imagen" accept="image/*">
-                <span th:if="${paciente.imagen != null}">
-                    <img th:src="@{/imagen/perfil/__${paciente.dni}__}" 
-                         style="max-width: 100px; max-height: 100px;" />
-                </span>
-                <span th:unless="${paciente.imagen != null}">
-                    <img src="/src/main/resources/static/Img/incognito.webp" 
-                         style="max-width: 100px; max-height: 100px;" />
-                </span>
-            </p>
-        
-            <input type="submit" value="Guardar cambios">
-        </form>
+                  <!-- Otros campos para editar -->
+                  <p>
+                    <select
+                      class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                      id="obraSocialId"
+                      name="obraSocialId"
+                    >
+                      <option
+                        th:if="${paciente.obraSocial != null}"
+                        th:text="${paciente.obraSocial.nombre}"
+                        th:value="${paciente.obraSocial.id}"
+                      ></option>
+                      <option
+                        th:if="${paciente.obraSocial == null}"
+                        th:value="null"
+                      >
+                        No tengo
+                      </option>
+                      <option
+                        th:each="obraSocial :${obrasociales}"
+                        th:unless="${paciente.obraSocial !=null and obraSocial.nombre == paciente.obraSocial.nombre}"
+                        th:value="${obraSocial.id}"
+                        th:text="${obraSocial.nombre}"
+                      ></option>
+                      <option
+                        th:if="${paciente.obraSocial != null}"
+                        th:value="null"
+                      >
+                        No tengo
+                      </option>
+                    </select>
+                  </p>
+                  <!-- Otros campos para editar -->
+                  <p>
+                    <label for="imagen">Imagen:</label>
+                    <input
+                      type="file"
+                      id="imagen"
+                      name="imagen"
+                      accept="image/*"
+                    />
+                    <span th:if="${paciente.imagen != null}">
+                      <img
+                        th:src="@{/imagen/perfil/__${paciente.dni}__}"
+                        style="max-width: 100px; max-height: 100px"
+                      />
+                    </span>
+                    <span th:unless="${paciente.imagen != null}">
+                      <img
+                        src="/src/main/resources/static/Img/incognito.webp"
+                        style="max-width: 100px; max-height: 100px"
+                      />
+                    </span>
+                  </p>
+                  <!-- Botón para mostrar/ocultar campos de contraseña -->
+
+                  <label id="togglePasswordFields"
+                    >Mostrar campos de contraseña</label
+                  >
+
+                  <!-- Div con campos de contraseña (inicialmente oculto) -->
+                  <div id="passwordFields" style="display: none">
+                    <p>
+                      <label for="nombre">Password:</label>
+                      <input type="password" id="password" name="password" />
+                    </p>
+                    <p>
+                      <label for="nombre">Password2:</label>
+                      <input type="password" id="password2" name="password2" />
+                    </p>
+                  </div>
+                  <input type="submit" value="Guardar cambios" />
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      
     </div>
-      <!-- Banner azul -->
-      
 
-      <!-- Aquí puedes agregar el resto del contenido principal -->
-    </div>
-  </div>
-
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-    integrity="sha384-gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"></script>
-
-
-
-
-</body>
-
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha384-gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    ></script>
+  </body>
 </html>

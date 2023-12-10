@@ -10,8 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.salud.equipoT.entidad.Doctor;
+import com.salud.equipoT.entidad.Especializacion;
 import com.salud.equipoT.entidad.ObraSocial;
 import com.salud.equipoT.entidad.Paciente;
+import com.salud.equipoT.service.DoctorService;
+import com.salud.equipoT.service.EspecializacionService;
 import com.salud.equipoT.service.ObraSocialService;
 import com.salud.equipoT.service.PacienteService;
 
@@ -21,6 +25,11 @@ public class PortalController {
 private ObraSocialService obraSocialService;
     @Autowired
     private PacienteService pacienteService;
+    @Autowired
+    private EspecializacionService especializacionService;
+    @Autowired
+    private DoctorService doctorService;
+    
     public String index() {
 
         return "index.html";
@@ -52,22 +61,32 @@ private ObraSocialService obraSocialService;
     }
 
 
-    @GetMapping("/perfil")
-    public String perfil(ModelMap model){
-         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        // Verifica si el usuario está autenticado y no es un usuario anónimo
-        if (auth.isAuthenticated() && !(auth.getPrincipal() instanceof String && auth.getPrincipal().equals("anonymousUser"))) {
-            // Obtén los detalles del usuario
-            UserDetails userDetails = (UserDetails) auth.getPrincipal();
+@GetMapping("/perfil")
+public String perfil(ModelMap model, Authentication authentication) {
+    if (authentication != null && authentication.isAuthenticated()) {
+        // Verifica si el usuario tiene el rol "ROLE_PACIENTE"
+        if (authentication.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_PACIENTE"))) {
+            // Obtén los detalles del paciente
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             Paciente paciente = pacienteService.findByEmail(userDetails.getUsername());
             List<ObraSocial> obraSociales = obraSocialService.listarObraSociales();
+            List<Especializacion> especializaciones = especializacionService.listarEspecializaciones();
+            List<Doctor> doctores = doctorService.listarDoctores();
+
+
+            model.put("doctores", doctores);
             model.put("paciente", paciente);
             model.put("obrasociales", obraSociales);
-        return "perfil.html";
-    }else return "login.html";
-
-
-
+            model.put("especializaciones", especializaciones);
+            return "perfil.html";
+        } else if (authentication.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_DOCTOR"))) {
+            // Si el usuario tiene el rol "ROLE_DOCTOR", redirige a la página de perfil de doctor
+            return "redirect:/inicio";
+        }
+    }
+    // Si no está autenticado o no tiene un rol válido, redirige al login
+    return "redirect:/login.html";
 }
 }

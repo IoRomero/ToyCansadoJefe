@@ -41,7 +41,7 @@ public class EspecializacionController {
         modelo.addAttribute("especializaciones", especializaciones);
         return "especializacion_list";
     }
-
+    
     @GetMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, ModelMap modelo){
        modelo.put("especializacion",especializacionService.getOne(id));

@@ -1,0 +1,59 @@
+body .bg-gradient {
+    /*background: linear-gradient(to right, #a8e063, #66a6ff);*/
+    background-color: green;
+    background: linear-gradient(45deg, white, lightgreen);
+    color: #333;
+    /* Color de texto, ajusta según tus necesidades */
+
+}
+
+.translucent-table {
+    background-color: rgba(255, 255, 255, 0.7);
+    /* Ajusta el valor alpha para la opacidad */
+}
+
+.caption {
+    color: gray("100");
+    background-color: theme-color("dark");
+}
+
+th.actions-header {
+    padding-right: 10px;
+    padding-left: 10px;
+    padding: auto;
+    /* Ajusta el valor según tus necesidades */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #ffc107;
+    /* Amarillo brillante, ajusta según sea necesario */
+    color: black;
+    /* Cambia el color del texto para que sea legible */
+}
+
+.bg-chillon {
+    background-color: #ffc107 !important;
+    /* Amarillo brillante, !important para priorizar */
+    color: black;
+    /* Color del texto */
+}
+
+.tabla-desplegable {
+    border-collapse: collapse;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+    width: 100%;
+    /* Ajusta según sea necesario */
+}
+
+.tabla-desplegable th,
+.tabla-desplegable td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.tabla-desplegable.mostrar {
+    max-height: 1000px;
+    /* Ajusta según sea necesario */
+}

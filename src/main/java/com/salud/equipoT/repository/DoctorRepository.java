@@ -42,7 +42,11 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     @Query("SELECT d FROM Doctor d WHERE d.especializacion = :especializacion")
     public List<Doctor> listarDoctorPorEspecializacion(@Param("especializacion") Especializacion especializacion);
     List<Doctor> findByActivoTrue();
-
+ 
+ 
+    @Query("SELECT d FROM Doctor d WHERE d.especializacion.id = :id")
+    public List<Doctor> findByEspecializacion(@Param("id") String especializacion);
+    
     @Query("SELECT d.turnosCreados FROM Doctor d WHERE d.id = :id")
     List<Turno> listarTurnosCreados(@Param("id") Long id);
 }

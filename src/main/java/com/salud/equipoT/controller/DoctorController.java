@@ -29,6 +29,8 @@ import com.salud.equipoT.service.DiaAtencionService;
 import com.salud.equipoT.service.DoctorService;
 import com.salud.equipoT.service.EspecializacionService;
 import com.salud.equipoT.service.PacienteService;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 @RequestMapping("/doctor")
@@ -125,7 +127,6 @@ public class DoctorController {
 
         Doctor doctor = doctorService.getOne(id);
         model.addAttribute("doctor", doctor);
-        System.out.println("Doctor Email"+doctor.getEmail());
         return "doctor_perfil";
     }
 
@@ -159,4 +160,16 @@ public class DoctorController {
         }
 
     }
+
+
+    @PostMapping("/especializacion/{id}")
+    public String doctoresPorEspecializacion(String especializacionId,ModelMap model)  {
+
+        List<Doctor> doctores = doctorService.findByEspecializacion(especializacionId);
+
+
+        model.put("doctores", doctores);
+        return "perfil.html";
+    }
+    
 }

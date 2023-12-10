@@ -78,7 +78,13 @@ public class DoctorService implements UserDetailsService{
         doctores = doctorRepository.findAll();
         return doctores;
     }
-    
+
+    public List<Doctor> findByEspecializacion(String especializacionId){
+
+
+        return doctorRepository.findByEspecializacion(especializacionId);
+
+    }
     @Transactional
     public void modificarDoctor(Long id, String nombre, Long telefono, String email, String password, String password2, Long matricula,
             Double puntuacion, Double precioConsulta, MultipartFile archivo, String idespecializacion,

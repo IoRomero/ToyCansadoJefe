@@ -83,3 +83,8 @@ body {
   .cont-menu h4 {
     text-align: center;
   }
+  #perfilInfo,
+#editarForm,
+#especializaciones {
+  display: none;
+}

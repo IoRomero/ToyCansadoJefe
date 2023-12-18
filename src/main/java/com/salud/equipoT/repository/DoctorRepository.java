@@ -49,4 +49,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     
     @Query("SELECT d.turnosCreados FROM Doctor d WHERE d.id = :id")
     List<Turno> listarTurnosCreados(@Param("id") Long id);
+
+    
 }

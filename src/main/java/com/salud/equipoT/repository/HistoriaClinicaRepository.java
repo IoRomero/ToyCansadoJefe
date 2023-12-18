@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 public interface HistoriaClinicaRepository extends JpaRepository<HistoriaClinica, Long> {
 
     @Query("SELECT hc FROM HistoriaClinica hc WHERE hc.paciente = :paciente")
-    List<HistoriaClinica> findByPaciente(@Param("paciente") Paciente paciente);
+    HistoriaClinica findByPaciente(@Param("paciente") Paciente paciente);
 
     @Query("SELECT hc FROM HistoriaClinica hc JOIN hc.consultas c WHERE hc.paciente = :paciente ORDER BY c.id ASC")
     List<HistoriaClinica> findByPacienteOrderByConsultaIdAsc(@Param("paciente") Paciente paciente);

@@ -40,7 +40,7 @@ public class ImagenController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
         return new ResponseEntity<>(imagen,headers,HttpStatus.OK);
-    }/* 
+    }
     @GetMapping ("/perfil/{matricula}")
     public ResponseEntity<byte[]> imagenDoctor(@PathVariable Long matricula){
         Doctor doctor = doctorService.getOne(matricula);
@@ -48,5 +48,5 @@ public class ImagenController {
         HttpHeaders headers = new HttpHeaders();
        headers.setContentType(MediaType.IMAGE_JPEG);
        return new ResponseEntity<>(imagen,headers, HttpStatus.OK); 
-    }*/ 
+    }
 }

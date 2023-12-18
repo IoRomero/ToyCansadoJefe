@@ -6,41 +6,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Listado de Obras Sociales</title>
+    <title>Listado de Doctor</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
       crossorigin="anonymous"
     />
-
     <style>
       body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh; /* Asegura que el contenido ocupe al menos toda la altura de la pantalla */
-        background-image: url("/img/fondoverde.jpeg"); /* Reemplaza esta ruta con la ubicación de tu imagen */
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh; /* Asegura que el contenido ocupe al menos toda la altura de la pantalla */
+          background-image: url('/img/fondoverde.jpeg'); /* Reemplaza esta ruta con la ubicación de tu imagen */
         background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
-      }
+        }
 
       .content {
-        flex: 1; /* Hace que este div ocupe todo el espacio restante */
-        /* Otros estilos para el contenido si es necesario */
+          flex: 1; /* Hace que este div ocupe todo el espacio restante */
+          /* Otros estilos para el contenido si es necesario */
       }
 
       footer {
-        background-color: #333;
-        color: #fff;
-        text-align: center;
-        padding: 20px;
-        /* Fija el footer en la parte inferior */
-        position: fixed;
-        bottom: 0;
-        width: 100%;
+          background-color: #333;
+          color: #fff;
+          text-align: center;
+          padding: 20px;
+          /* Fija el footer en la parte inferior */
+          position: fixed;
+          bottom: 0;
+          width: 100%;
       }
-    </style>
+  </style>
 
     <link
       rel="stylesheet"
@@ -70,36 +69,43 @@
   </head>
 
   <body>
-    <nav th:replace="/fragments/navbar :: nav"></nav>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
+      <nav th:replace="/fragments/navbar :: nav"></nav>
+
       <div class="container m-5 text-center mx-auto tabla-desplegable">
         <div class="d-flex justify-content-center">
           <table
             class="table align-middle table-info opacity-75 caption-top table-hover bg-chillon"
           >
             <caption class="p-3 mb-2 bg-dark text-white">
-              Nuestra lista de Obras sociales
+              Lista de Doctores
             </caption>
             <thead class="wv-100">
               <tr>
-                <th scope="col">Nombre la Obra Social</th>
+                <th scope="col">Nombre del Doctor</th>
+                
                 <th
+                  sec:authorize="hasAnyRole('ROLE_ADMIN')"
                   scope="col"
                   class="pr-3"
-                  sec:authorize="hasAnyRole('ROLE_ADMIN')"
                 >
-                  Acciones
+                  <h5>Acciones</h5>
                 </th>
+                <th scope="col"></th>
                 <th
+                  sec:authorize="hasAnyRole('ROLE_ADMIN')"
                   scope="col"
                   class="pr-3"
-                  sec:authorize="hasAnyRole('ROLE_ADMIN')"
-                ></th>
+                >
+                  <h5></h5>
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each=" obrasocial, iterStat : ${obrasociales}">
-                <td th:text="${obrasocial.nombre}"></td>
+              <tr th:each="doctor, iterStat : ${doctores}">
+                <td th:text="${doctor.nombre}"></td>
+                <td><a th:href="@{/turnero/reservar/__${doctor.id}__}"
+                  class="btn btn-link text-decoration-none">Sacar Turno</a></td>
 
                 <td sec:authorize="hasAnyRole('ROLE_ADMIN')">
                   <!-- Botón para abrir el modal de modificación -->
@@ -108,8 +114,8 @@
                     class="btn btn-success rounded-pill"
                     data-bs-toggle="modal"
                     th:data-bs-target="'#myModalEdit-' + ${iterStat.index}"
-                    data-id="${obrasocial.id}"
-                    data-nombre="${obrasocial.nombre}"
+                    data-id="${doctor.id}"
+                    data-nombre="${doctor.nombre}"
                   >
                     <i class="fas fa-pencil-alt"></i>
                     Modificar
@@ -118,7 +124,7 @@
 
                 <td sec:authorize="hasAnyRole('ROLE_ADMIN')">
                   <a
-                    th:href="@{/obrasocial/eliminar/__${obrasocial.id}__}"
+                    th:href="@{/doctor/eliminar/__${doctor.id}__}"
                     class="btn btn-outline-danger rounded-0"
                     ><i class="fas fa-trash"></i> Eliminar
                   </a>
@@ -136,7 +142,7 @@
                       <!-- Encabezado del modal -->
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">
-                          Editar Obra Social
+                          Editar Doctor
                         </h5>
                         <button
                           type="button"
@@ -151,25 +157,26 @@
                         <!-- Aquí va tu formulario -->
                         <form
                           class="formulario"
-                          th:action="@{/obrasocial/modificar/__${obrasocial.id}__}"
+                          th:action="@{/doctor/modificar/__${doctor.id}__}"
                           method="POST"
                         >
                           <!-- Campos del formulario -->
                           <div class="form-group my-3">
-                            <label class="mb-2">Editar Obra Social</label>
+                            <label class="mb-2">Editar Doctor</label>
                             <input
                               type="text"
                               class="form-control"
                               name="nombre"
-                              placeholder="Nombre de la obrasocial"
+                              placeholder="Nombre de la doctor"
                             />
                           </div>
                           <!-- Otros campos del formulario -->
-
-                          <!-- Botón de envío del formulario -->
-                          <button type="submit" class="btn btn-primary">
-                            Crear
-                          </button>
+                          <div>
+                            <!-- Botón de envío del formulario -->
+                            <button type="submit" class="btn btn-primary">
+                              Crear
+                            </button>
+                          </div>
                         </form>
                       </div>
                     </div>
@@ -201,104 +208,46 @@
 
         <section class="py-5 text-center container">
           <div class="row">
-            <div
-              sec:authorize="hasAnyRole('ROLE_ADMIN')"
-              class="col-lg-6 col-md-8 mx-auto"
-            >
-              <button
-                type="button"
-                class="btn btn-dark"
-                data-mdb-ripple-init
-                data-bs-toggle="modal"
-                data-bs-target="#myModal"
-              >
-                Nueva Obra Social
-              </button>
+            <div sec:authorize="hasAnyRole('ROLE_ADMIN')" class="col-lg-6 col-md-8 mx-auto">
+              <a th:href="@{/doctor/registrar}" class="btn btn-primary my-2"
+                >Crear Doctor
+              </a>
             </div>
             <div>
               <a th:href="@{/}" class="btn btn-primary my-2">Volver</a>
             </div>
           </div>
         </section>
-
-        <div
-          class="modal fade"
-          id="myModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <!-- Encabezado del modal -->
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Nueva Obra Social
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-
-              <!-- Contenido del modal -->
-              <div class="modal-body">
-                <!-- Aquí va tu formulario -->
-                <form
-                  class="formulario"
-                  th:action="@{/obrasocial/registro/}"
-                  method="POST"
-                >
-                  <!-- Campos del formulario -->
-                  <div class="form-group my-2">
-                    <label class="mb-2">Nueva Obra Social</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="nombre"
-                      placeholder="Nombre de la obrasocial"
-                    />
-                  </div>
-                  <!-- Otros campos del formulario -->
-
-                  <!-- Botón de envío del formulario -->
-                  <button type="submit" class="btn btn-primary">Crear</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-    <footer class="text-center text-white bg-green-800">
-      <p>&copy; 2023 SaludAPP. Todos los derechos reservados.</p>
-    </footer>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="/ToyCansadoJefe-developerSinHerencia/src/main/resources/static/js/especializaciones.js"></script>
-    <!-- Tu archivo de scripts jQuery -->
-    <!-- JavaScript Bundle with Popper -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
+        <footer class="text-center text-white bg-green-800">
+          <p>&copy; 2023 SaludAPP. Todos los derechos reservados.</p>
+        </footer>
+
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+      <script src="/ToyCansadoJefe-developerSinHerencia/src/main/resources/static/js/especializaciones.js"></script>
+      <!-- Tu archivo de scripts jQuery -->
+      <!-- JavaScript Bundle with Popper -->
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"
+      ></script>
+    </div>
   </body>
 </html>

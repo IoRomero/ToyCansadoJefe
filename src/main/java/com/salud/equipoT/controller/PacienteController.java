@@ -114,6 +114,14 @@ public class PacienteController {
             // Si el usuario no está autenticado o es un usuario anónimo, redirige a la página de login
             return "login.html"; // Nombre de la vista de login
         }
-    }
-    
+
+
+        
+     }
+     
+    @PostMapping("/eliminar/{id}")
+        public String eliminarPacientePorId(@PathVariable Long id){
+            pacienteService.eliminarPaciente(id);
+
+    return "redirect:../lista";    }   
 }

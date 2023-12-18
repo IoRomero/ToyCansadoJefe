@@ -72,18 +72,27 @@ public String perfil(ModelMap model, Authentication authentication) {
             Paciente paciente = pacienteService.findByEmail(userDetails.getUsername());
             List<ObraSocial> obraSociales = obraSocialService.listarObraSociales();
             List<Especializacion> especializaciones = especializacionService.listarEspecializaciones();
-            List<Doctor> doctores = doctorService.listarDoctores();
 
-
-            model.put("doctores", doctores);
             model.put("paciente", paciente);
             model.put("obrasociales", obraSociales);
             model.put("especializaciones", especializaciones);
+
             return "perfil.html";
+
         } else if (authentication.getAuthorities().stream()
                 .anyMatch(r -> r.getAuthority().equals("ROLE_DOCTOR"))) {
-            // Si el usuario tiene el rol "ROLE_DOCTOR", redirige a la página de perfil de doctor
-            return "redirect:/inicio";
+
+                    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                    Doctor doctor = doctorService.findByEmail(userDetails.getUsername());
+            Paciente paciente = pacienteService.findByEmail(userDetails.getUsername());
+            List<ObraSocial> obraSociales = obraSocialService.listarObraSociales();
+            List<Especializacion> especializaciones = especializacionService.listarEspecializaciones();
+
+            model.put("paciente", paciente);
+            model.put("obrasociales", obraSociales);
+            model.put("especializaciones", especializaciones);
+                    model.put("doctor", doctor);
+            return "perfilDoctor.html";
         }
     }
     // Si no está autenticado o no tiene un rol válido, redirige al login

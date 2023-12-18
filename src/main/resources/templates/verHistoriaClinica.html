@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Ver historia clinica</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/turnero.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+
+                    <div class="">
+                        <label class="mb-2">Nombre del paciente:</label> 
+                        <p th:text="${paciente.nombre}" name="nombrePaciente"></p>
+                    </div>
+
+                    <h1>Lista de Consultas</h1>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Médico</th>
+                                <th>Motivo de Consulta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="consulta : ${paciente.historiaClinica.consultas}">
+                                <td th:text="${#dates.format(consulta.turno.fechaInicio, 'dd/MM/yyyy HH:mm')}"></td>
+                                <td th:text="${consulta.doctor.nombre}"></td>
+                                <td th:text="${consulta.motivoConsulta}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-between">
+                        <a th:href="@{'/turnero/reservar/' + ${doctor.id}}" class="btn btn-secondary mt-3">Volver</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+
+</html>

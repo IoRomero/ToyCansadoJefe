@@ -88,3 +88,38 @@ body {
 #especializaciones {
   display: none;
 }
+
+.profile-card {
+  max-width: 400px;
+  margin: 50px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 30px;
+}
+
+.profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.profile-details {
+  padding: 20px;
+}
+
+.tarjetas a {
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  color: #1c1c1c;
+}
+/* iconocs de turnos*/
+.cal {
+  width: 80px;
+}
+
+

@@ -85,20 +85,14 @@
                   >Pacientes</a
                 >
                 <a
-                  href="/turnero/reservar"
+                  href="#"
                   sec:authorize="hasAnyRole('ROLE_PACIENTE')"
                   class="nav-link"
                   id="turnos"
                   style="color: aliceblue"
-                  >Sacar Turno</a
+                  >Turno</a
                 >
-                <button
-                  id="mostrarEspecializaciones"
-                  class="nav-link"
-                  style="color: aliceblue"
-                >
-                  Mostrar Especializaciones
-                </button>
+
                 <br />
                 <br />
                 <br />
@@ -116,188 +110,348 @@
             </div>
           </div>
 
-          <!--- Lista de Especializaciones-->
+          <div
+            class="container mt-3 tarjetas"
+            id="tarjetasContainer"
+            style="display: none"
+          >
+            <div class="row">
+              <div class="col-md-6">
+                <a href="#" class="card clickable-card" id="sacarTurnoButton">
+                  <div class="card-body">
+                    <div class="icon-container">
+                      <i class="fas fa-calendar-plus fa-3x"></i>
+                      <img class="cal" src="../Img/sacarTurno.png" />
+                    </div>
+                    <h5 class="card-title">Sacar Turno</h5>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a href="#" class="card clickable-card">
+                  <div class="card-body">
+                    <div class="icon-container">
+                      <img class="cal" src="../Img/consultaTurno.png" />
+                      <i class="fas fa-clock fa-3x"></i>
+                    </div>
+                    <h5 class="card-title">Turnos Pendientes</h5>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario para mostrar los doctores por especialización -->
+
           <div id="especializaciones">
-            <!-- Formulario para mostrar los doctores por especialización -->
             <div th:each="especializacion : ${especializaciones}">
               <form
-                method="POST"
                 th:action="@{/doctor/especializacion/__${especializacion.id}__}"
-                onsubmit="mostrarDoctoresPorEspecializacion(event, this)"
+                method="post"
+                id="especializacionesForm"
               >
                 <button
                   type="submit"
                   class="btn btn-primary mt-2 w-100 text-left"
-                >
-                  <span th:text="${especializacion.nombre}"></span>
-                </button>
+                  th:text="${especializacion.nombre}"
+                  name="especializacionId"
+                  value="${especializacion.id}"
+                ></button>
               </form>
             </div>
           </div>
-          <div>
-            <div id="doctoresPorEspecializacion" style="display: none">
-              <!-- Aquí se mostrará la lista de doctores por especialización -->
-              <div th:each="doctor : ${doctoresPorEspecializacion}">
-                <button
-                  type="submit"
-                  class="btn btn-primary mt-2 w-100 text-left"
+
+          <!-- Contenido principal -->
+          <div class="col-md-9">
+            <!-- Aquí puedes mostrar los datos del perfil del paciente -->
+
+            <div
+              class="card profile-card bg-blue-500 bg-opacity-0 text-black translate-x-28"
+              id="perfilInfo"
+            >
+              <h1 class="text-2xl font-bold">Mis Datos</h1>
+              <div
+                  class="card-body profile-details"
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                  "
                 >
-                  <span th:text="${doctor.nombre}"></span>
+                 
+
+                  <span th:if="${paciente.imagen != null}">
+                    <img
+                      th:src="@{/imagen/perfil/__${paciente.dni}__}"
+                      class="max-w-full max-h-40 mt-2"
+                      style="max-width: 100px; max-height: 100px"
+                    />
+                  </span>
+                  <span
+                    th:unless="${paciente.imagen != null}"
+                    style="max-width: 100px; max-height: 100px"
+                  >
+                    <img
+                      th:src="@{/Img/incognito.webp}"
+                      class="max-w-full max-h-40 mt-2"
+                    />
+                  </span>
+                  
+                </div>
+              <div class="card-body profile-details">
+                <h4 class="card-title text-lg font-bold">
+                  Nombre de usuario:
+                  <span th:text="${paciente.nombre}"></span>
+                </h4>
+                <p class="card-text font-bold">
+                  Correo electrónico:
+                  <span th:text="${paciente.email}"></span>
+                </p>
+                <!-- <p class="card-text font-bold">Obra Social: <span th:text="${paciente.obrasocial}"></span></p>-->
+                <p class="card-text font-bold">
+                  Dni: <span th:text="${paciente.dni}"></span>
+                </p>
+                <button class="btn btn-primary mt-3" id="editarButton">
+                  Editar campos
                 </button>
               </div>
             </div>
 
             <div>
-              <!-- Contenido principal -->
-              <div class="col-md-9">
-                <!-- Aquí puedes mostrar los datos del perfil del paciente -->
-
-                <div id="perfilInfo" style="display: none">
-                  <h1>Mis Datos</h1>
-                  <!-- Usando Thymeleaf para mostrar el nombre de usuario -->
-                  <p>
-                    Nombre de usuario:
-                    <span th:text="${paciente.nombre}"></span>
-                  </p>
-                  <!-- Agrega aquí otros detalles del perfil del paciente -->
-                  <p>
-                    Correo electrónico:
-                    <span th:text="${paciente.email}"></span>
-                  </p>
-                  <!-- <p>Obra Social: <span th:text="${paciente.obrasocial}"></span></p>-->
-                  <p>Dni: <span th:text="${paciente.dni}"></span></p>
-                  <p>
-                    imagen:
-                    <img
-                      th:if="${paciente.imagen != null}"
-                      class="logo img-fluid"
-                      th:src="@{/imagen/perfil/__${paciente.dni}__}"
-                      style="max-width: 100px; max-height: 100px"
-                    />
-                  </p>
-
-                  <button class="btn btn-primary" id="editarButton">
-                    Editar campos
-                  </button>
-                </div>
-                <form
-                  th:action="@{/paciente/modificar/__${paciente.dni}__}"
-                  method="POST"
-                  enctype="multipart/form-data"
-                  id="editarForm"
-                  style="display: none"
-                >
-                  <!-- Campo oculto para enviar el ID del paciente -->
+              <form
+                th:action="@{/paciente/modificar/_${paciente.dni}_}"
+                method="POST"
+                enctype="multipart/form-data"
+                id="editarForm"
+                style="display: none"
+                class="max-w-md bg-blue-500 bg-opacity-50 text-black p-8 rounded-lg"
+              >
+                <!-- Campo oculto para enviar el ID del paciente -->
+                <input
+                  type="hidden"
+                  id="dni"
+                  name="dni"
+                  th:value="${paciente.dni}"
+                />
+                <!-- Campos para editar -->
+                <div class="mb-4">
+                  <label
+                    for="nombre"
+                    class="block text-black text-sm font-bold mb-2"
+                    >Nombre:</label
+                  >
                   <input
-                    type="hidden"
-                    id="dni"
-                    name="dni"
-                    th:value="${paciente.dni}"
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    th:value="${paciente.nombre}"
+                    class="form-input w-full"
+                    required
                   />
-                  <!-- Campos para editar -->
-                  <p>
-                    <label for="nombre">Nombre:</label>
-                    <input
-                      type="text"
-                      id="nombre"
-                      name="nombre"
-                      th:value="${paciente.nombre}"
-                      required
-                    />
-                  </p>
-                  <!-- Otros campos para editar -->
-                  <p>
-                    <label for="nombre">Email:</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      th:value="${paciente.email}"
-                      required
-                    />
-                  </p>
-                  <!-- Otros campos para editar -->
+                </div>
+                <!-- Otros campos para editar -->
+                <div class="mb-4">
+                  <label
+                    for="email"
+                    class="block text-black text-sm font-bold mb-2"
+                    >Email:</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    th:value="${paciente.email}"
+                    class="form-input w-full"
+                    required
+                  />
+                </div>
+                <!-- Otros campos para editar -->
 
-                  <!-- Otros campos para editar -->
-                  <p>
-                    <select
-                      class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                      id="obraSocialId"
-                      name="obraSocialId"
+                <!-- Otros campos para editar -->
+                <div class="mb-4">
+                  <label
+                    for="obraSocialId"
+                    class="block text-black text-sm font-bold mb-2"
+                    >Obra Social:</label
+                  >
+                  <select
+                    class="form-select w-full"
+                    id="obraSocialId"
+                    name="obraSocialId"
+                  >
+                    <option
+                      th:if="${paciente.obraSocial != null}"
+                      th:text="${paciente.obraSocial.nombre}"
+                      th:value="${paciente.obraSocial.id}"
+                    ></option>
+                    <option
+                      th:if="${paciente.obraSocial == null}"
+                      th:value="null"
                     >
-                      <option
-                        th:if="${paciente.obraSocial != null}"
-                        th:text="${paciente.obraSocial.nombre}"
-                        th:value="${paciente.obraSocial.id}"
-                      ></option>
-                      <option
-                        th:if="${paciente.obraSocial == null}"
-                        th:value="null"
-                      >
-                        No tengo
-                      </option>
-                      <option
-                        th:each="obraSocial :${obrasociales}"
-                        th:unless="${paciente.obraSocial !=null and obraSocial.nombre == paciente.obraSocial.nombre}"
-                        th:value="${obraSocial.id}"
-                        th:text="${obraSocial.nombre}"
-                      ></option>
-                      <option
-                        th:if="${paciente.obraSocial != null}"
-                        th:value="null"
-                      >
-                        No tengo
-                      </option>
-                    </select>
-                  </p>
-                  <!-- Otros campos para editar -->
-                  <p>
-                    <label for="imagen">Imagen:</label>
-                    <input
-                      type="file"
-                      id="imagen"
-                      name="imagen"
-                      accept="image/*"
-                    />
-                    <span th:if="${paciente.imagen != null}">
-                      <img
-                        th:src="@{/imagen/perfil/__${paciente.dni}__}"
-                        style="max-width: 100px; max-height: 100px"
-                      />
-                    </span>
-                    <span th:unless="${paciente.imagen != null}">
-                      <img
-                        src="/src/main/resources/static/Img/incognito.webp"
-                        style="max-width: 100px; max-height: 100px"
-                      />
-                    </span>
-                  </p>
-                  <!-- Botón para mostrar/ocultar campos de contraseña -->
-
-                  <label id="togglePasswordFields"
-                    >Mostrar campos de contraseña</label
+                      No tengo
+                    </option>
+                    <option
+                      th:each="obraSocial :${obrasociales}"
+                      th:unless="${paciente.obraSocial !=null and obraSocial.nombre == paciente.obraSocial.nombre}"
+                      th:value="${obraSocial.id}"
+                      th:text="${obraSocial.nombre}"
+                    ></option>
+                    <option
+                      th:if="${paciente.obraSocial != null}"
+                      th:value="null"
+                    >
+                      No tengo
+                    </option>
+                  </select>
+                </div>
+                <!-- Otros campos para editar -->
+                <div
+                  class="card-body profile-details"
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                  "
+                >
+                  <label
+                    for="imagen"
+                    class="block text-black text-sm font-bold mb-2"
+                    >Imagen:</label
                   >
 
-                  <!-- Div con campos de contraseña (inicialmente oculto) -->
-                  <div id="passwordFields" style="display: none">
-                    <p>
-                      <label for="nombre">Password:</label>
-                      <input type="password" id="password" name="password" />
-                    </p>
-                    <p>
-                      <label for="nombre">Password2:</label>
-                      <input type="password" id="password2" name="password2" />
-                    </p>
+                  <span th:if="${paciente.imagen != null}">
+                    <img
+                      th:src="@{/imagen/perfil/__${paciente.dni}__}"
+                      class="max-w-full max-h-40 mt-2"
+                      style="max-width: 100px; max-height: 100px"
+                    />
+                  </span>
+                  <span
+                    th:unless="${paciente.imagen != null}"
+                    style="max-width: 100px; max-height: 100px"
+                  >
+                    <img
+                      th:src="@{/Img/incognito.webp}"
+                      class="max-w-full max-h-40 mt-2"
+                    />
+                  </span>
+                  <input
+                    type="file"
+                    id="imagen"
+                    name="imagen"
+                    accept="image/*"
+                    class="form-input w-full"
+                  />
+                </div>
+                <!-- Botón para mostrar/ocultar campos de contraseña -->
+                <div>
+                  <label
+                    id="togglePasswordFields"
+                    class="block text-black text-sm font-bold mb-2 cursor-pointer"
+                    style="display: block"
+                    onclick="togglePassword()"
+                    ><h5>Cambiar Contraseña</h5></label
+                  >
+                </div>
+                <!-- Div con campos de contraseña (inicialmente oculto) -->
+                <div id="passwordFields" style="display: none" class="mb-4">
+                  <div class="mb-4">
+                    <label
+                      for="password"
+                      class="flex items-center text-gray-600 text-sm font-semibold mb-2"
+                    >
+                      <span class="mr-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="16"
+                          width="14"
+                          viewBox="0 0 448 512"
+                        >
+                          <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                          <path
+                            d="M224 64c-44.2 0-80 35.8-80 80v48H384c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80V144C80 64.5 144.5 0 224 0c57.5 0 107 33.7 130.1 82.3c7.6 16 .8 35.1-15.2 42.6s-35.1 .8-42.6-15.2C283.4 82.6 255.9 64 224 64zm32 320c17.7 0 32-14.3 32-32s-14.3-32-32-32H192c-17.7 0-32 14.3-32 32s14.3 32 32 32h64z"
+                          />
+                        </svg>
+                      </span>
+                      Contraseña:
+                    </label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-100"
+                      required
+                    />
                   </div>
-                  <input type="submit" value="Guardar cambios" />
-                </form>
-              </div>
+
+                  <!-- Contraseña 2-->
+                  <div class="mb-4">
+                    <label
+                      for="password2"
+                      class="flex items-center text-gray-600 text-sm font-semibold mb-2"
+                    >
+                      <span class="mr-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="16"
+                          width="14"
+                          viewBox="0 0 448 512"
+                        >
+                          <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                          <path
+                            d="M224 64c-44.2 0-80 35.8-80 80v48H384c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80V144C80 64.5 144.5 0 224 0c57.5 0 107 33.7 130.1 82.3c7.6 16 .8 35.1-15.2 42.6s-35.1 .8-42.6-15.2C283.4 82.6 255.9 64 224 64zm32 320c17.7 0 32-14.3 32-32s-14.3-32-32-32H192c-17.7 0-32 14.3-32 32s14.3 32 32 32h64z"
+                          />
+                        </svg>
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M20 6L9 17l-5-5"
+                        />
+                      </span>
+                      Repetir Contraseña:
+                    </label>
+                    <input
+                      type="password"
+                      id="password2"
+                      name="password2"
+                      class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-100"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <br />
+                <br />
+                <input
+                  type="submit"
+                  value="Guardar cambios"
+                  class="btn btn-primary w-full py-2"
+                />
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-
+    <div
+      th:if="${exito}!=null"
+      class="card text-white bg-success mb-3 mt-3 mensajeExito"
+    >
+      <div class="card-body">
+        <h5 class="card-title">Exito!</h5>
+        <p class="card-text" th:text="${exito}"></p>
+      </div>
+    </div>
+    <div
+      th:if="${error}!=null"
+      class="card text-white bg-danger mb-3 mensajeError"
+    >
+      <div class="card-body">
+        <h5 class="card-title">Error ð</h5>
+        <p class="card-text" th:text="${error}"></p>
+      </div>
+    </div>
     <script
       src="https://code.jquery.com/jquery-3.6.4.min.js"
       integrity="sha384-gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"

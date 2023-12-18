@@ -22,30 +22,57 @@ window.onload = function () {
   window.addEventListener("resize", checkWindowSize);
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-  var perfilButton = document.getElementById("perfilButton");
-  var perfilInfo = document.getElementById("perfilInfo");
-  var editarButton = document.getElementById("editarButton");
-  var editarForm = document.getElementById("editarForm");
-  var mostrarEspecializacionesButton = document.getElementById(
-    "mostrarEspecializaciones"
-  );
-  var divEspecializaciones = document.getElementById("especializaciones");
-  var mostrarDoctoresPorEspecializacion = document.getElementById(
-    "doctoresPorEspecializacion"
-  );
+
+document.addEventListener('DOMContentLoaded', function () {
+  var perfilButton = document.getElementById('perfilButton');
+  var perfilInfo = document.getElementById('perfilInfo');
+  var editarButton = document.getElementById('editarButton');
+  var editarForm = document.getElementById('editarForm');
+  var sacarTurnoButton = document.getElementById('sacarTurnoButton');
+  var divEspecializaciones = document.getElementById('especializaciones');
+  var mostrarDoctoresPorEspecializacion = document.getElementById('doctoresPorEspecializacion');
+  var turnosButton = document.getElementById('turnos');
+  var tarjetasContainer = document.getElementById('tarjetasContainer');
+
+// Función para mostrar u ocultar las tarjetas
+
+if (turnosButton && tarjetasContainer) {
+  turnosButton.addEventListener("click", function () {
+    if (tarjetasContainer.style.display === "block") {
+      tarjetasContainer.style.display = "none";
+      // Aquí puedes agregar la lógica para mostrar lo que necesites cuando las tarjetas se ocultan.
+      
+    } else {
+      tarjetasContainer.style.display = "block";
+      // Aquí ocultas los otros elementos si las tarjetas se muestran
+      editarForm.style.display = "none";
+      divEspecializaciones.style.display = "none";
+      perfilInfo.style.display = "none";
+    }
+  });
+}
+
 
   // Manejador de evento clic para el botón de perfil
-  perfilButton.addEventListener("click", function (event) {
-    event.preventDefault();
+  perfilButton.addEventListener("click", function () {
+    if (perfilInfo.style.display === "block") {
+      perfilInfo.style.display = "none";
+    } else {
+      perfilInfo.style.display = "block";
 
-    if (editarForm.style.display === "block") {
+      // Ocultar el formulario de edición si está visible
+
+      tarjetasContainer.style.display = "none";
+      
       editarForm.style.display = "none";
-    }
 
-    perfilInfo.style.display = "block";
-    divEspecializaciones.style.display = "none";
+      divEspecializaciones.style.display = "none";
+
+    }
   });
+
+    
+  
 
   // Manejador de evento clic para el botón de editar
   editarButton.addEventListener("click", function (event) {
@@ -54,15 +81,15 @@ document.addEventListener("DOMContentLoaded", function () {
     perfilInfo.style.display = "none";
     // Mostrar el formulario de edición
     editarForm.style.display = "block";
-    divEspecializaciones.style.display = "none"; // Ocultar especializaciones si están visibles
   });
 
-  mostrarEspecializacionesButton.addEventListener("click", function () {
+  sacarTurnoButton.addEventListener("click", function () {
     if (divEspecializaciones.style.display === "block") {
       divEspecializaciones.style.display = "none";
     } else {
       divEspecializaciones.style.display = "block";
 
+      tarjetasContainer.style.display = "none";
       // Ocultar el perfil si está visible
       perfilInfo.style.display = "none";
 
@@ -70,60 +97,21 @@ document.addEventListener("DOMContentLoaded", function () {
       editarForm.style.display = "none";
     }
   });
-  mostrarDoctoresPorEspecializacion.addEventListener("click", function () {
-    if (mostrarDoctoresPorEspecializacion.style.display == "block") {
-      mostrarDoctoresPorEspecializacion.style.display = "none";
-    } else {
-      divEspecializaciones.style.display = "none";
+}); 
+document.getElementById('especializacionesForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Evita que el formulario se envíe por defecto
 
-      // Ocultar el perfil si está visible
-      perfilInfo.style.display = "none";
+  var form = event.target;
+  var especializacionId = form.elements['especializacionId'].value;
 
-      // Ocultar el formulario de edición si está visible
-      editarForm.style.display = "none";
-
-      mostrarDoctoresPorEspecializacion.style.display = "block";
-    }
-  });
-  // Manejo de los campos de contraseña (mostrar/ocultar)
-  $("#togglePasswordFields").click(function () {
-    $("#passwordFields").toggle();
-  });
+  // Redirige a la página de lista de doctores con el ID de la especialización
+  window.location.href = '/doctor/especializacion/' + especializacionId;
 });
-
-////////////////////////////////////////////////////////////////////////////
-//intento de que ande el boton de las especializaciones para q me muestre
- /*function mostrarDoctoresPorEspecializacion(event, form) {
-    event.preventDefault();
-  
-    const especializacionId = form.especializacionId.value;
-  
-    fetch(`/doctor/especializacion/${especializacionId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => response.json())
-      .then(doctores => {
-        const doctoresDiv = document.getElementById("doctoresPorEspecializacion");
-        doctoresDiv.innerHTML = "";
-  
-        // Mostrar la lista de doctores por especialización
-        doctores.forEach(doctor => {
-          const doctorElement = document.createElement("p");
-          doctorElement.textContent = doctor.nombre; // Ajusta esto según tus datos reales
-  
-          // Agrega más información del doctor si es necesario
-          // Por ejemplo: doctorElement.textContent += ` - ${doctor.especialidad}`;
-  
-          doctoresDiv.appendChild(doctorElement);
-        });
-  
-        // Mostrar el div con la lista de doctores por especialización
-        doctoresDiv.style.display = "block";
-      })
-      .catch(error => {
-        console.error('Error al obtener la lista de doctores:', error);
-      });
-    }*/
+function togglePassword() {
+  var passwordFields = document.getElementById("passwordFields");
+  if (passwordFields.style.display === "none") {
+      passwordFields.style.display = "block";
+  } else {
+      passwordFields.style.display = "none";
+  }
+}

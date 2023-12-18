@@ -1,0 +1,88 @@
+<html>
+
+<head>
+  <title>Ver turno</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/css/turnero.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Asegura que el contenido ocupe al menos toda la altura de la pantalla */
+      background-image: url("/img/fondoverde.jpeg"); /* Reemplaza esta ruta con la ubicación de tu imagen */
+      background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
+    }
+
+    .content {
+      flex: 1; /* Hace que este div ocupe todo el espacio restante */
+      /* Otros estilos para el contenido si es necesario */
+    }
+
+   
+  </style>
+</head>
+
+<body>
+  <div class="flex items-center justify-center max-w-screen-md mx-auto mt-36">
+    <div class="flex justify-center  bg-gradient-to-b from-blue-300 to-green-400 p-14 rounded-lg cont">
+      <div class="md:col-md-6 p-10">
+        <form class="formulario " th:action="@{/doctor/consulta/crear}" method="POST">
+
+          <div hidden class="form-group">
+            <input th:value="${turno.id}"
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-100 form-control"
+              name="turnoId"></input>
+          </div>
+
+          <div class="form-group mb-4">
+            <label class="flex items-center text-gray-600 text-md font-semibold mb-2"><i
+                class="fa-solid fa-calendar-check mr-2"></i>
+              Fecha del turno:</label>
+            <p th:text="${#dates.format(turno.fechaInicio, 'dd/MM/yyyy H:mm') + 'h'}" class="form-control"
+              name="fechaInicio"></p>
+          </div>
+
+          <div class="form-group mb-4">
+            <label class="flex items-center text-gray-600 text-md font-semibold mb-2"><i
+                class="fa-solid fa-user mr-2"></i>Paciente del turno:</label>
+            <p th:text="${turno.paciente.nombre}" class="form-control" name="paciente"></p>
+          </div>
+
+          <div class="form-group mb-4">
+            <a th:href="@{'/historia-clinica/ver/' + ${turno.paciente.dni}}" class="btn btn-primary mt-3 botones">Ver
+              historia clinica</a>
+          </div>
+
+          <div class="form-group mb-4">
+            <label class="flex items-center text-gray-600 text-md font-semibold mb-2">
+              <i class="fa-solid fa-user-doctor mr-2"></i>Doctor del turno:
+            </label>
+            <p th:text="${doctor.nombre}" class="form-control" name="doctor"></p>
+          </div>
+
+
+          <div class="flex justify-between">
+            <button type="submit" th:if="${not #authorization.expression('hasRole(''ROLE_PACIENTE'')')}"
+              class="bg-green-500 text-white px-4 py-2 rounded-md border border-solid border-black hover:bg-green-600 focus:outline-none mt-2 w-full border-black-100">Crear
+              consulta</button>
+
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="text-center mt-4">
+    <a th:href="@{/turnero/reservar}" class="btn btn-secondary mt-3">Volver</a>
+  </div>
+  <script src="https://kit.fontawesome.com/77615df828.js" crossorigin="anonymous"></script>
+</body>
+
+
+</html>

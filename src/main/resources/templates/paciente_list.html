@@ -1,107 +1,222 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Listado de Especializacion</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+      <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Asegura que el contenido ocupe al menos toda la altura de la pantalla */
+        background-image: url("/img/fondoverde.jpeg"); /* Reemplaza esta ruta con la ubicación de tu imagen */
+        background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
+      }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Paciente</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="/static/js/carousel-script.js"></script>
-    <link rel="stylesheet" href="/static/css/index.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+      .content {
+        flex: 1; /* Hace que este div ocupe todo el espacio restante */
+        /* Otros estilos para el contenido si es necesario */
+      }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,800;1,900&display=swap">
+      footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+        /* Fija el footer en la parte inferior */
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
 
-</head>
+  </style>
 
-<body class="bg-gray-100 m-0 p-0 ">
-    <div class="container-fluid">
-        <nav th:replace="/fragments/navbar :: nav"></nav>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,800;1,900&display=swap"
+    />
+    <!-- CSS de Bootstrap "PopUp"-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="/ToyCansadoJefe-developerSinHerencia/src/main/resources/static/css/especializacion_list.css"
+    />
+    <!-- Scripts de Bootstrap (requieren jQuery y Popper.js) "PopUp" -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
 
-        <div class="container m-5">
+  <body>
+    <div class="container-fluid p-0 ">
+      <nav th:replace="/fragments/navbar :: nav"></nav>
 
-            <table class="table table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">DNI</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Obra Social</th>
-                        <th scope="col">Imagen</th>
-                        <th scope="col" sec:authorize="hasRole('ADMIN')">Acciones</th>
+      <div class="container m-5 text-center mx-auto tabla-desplegable">
+        <div class="d-flex justify-content-center">
+          <table
+            class="table align-middle table-info opacity-75 caption-top table-hover bg-chillon"
+          >
+            <caption class="p-3 mb-2 bg-dark text-white">
+              Nuestra lista de especializaciones
+            </caption>
+            <thead class="wv-100">
+              <tr>
+                <th scope="col">DNI</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col">Obra Social</th>
+                <th scope="col">Imagen</th>
+                <th scope="col" sec:authorize="hasRole('ADMIN')">Acciones</th>
+                <th  scope="col" class="pr-3" sec:authorize="hasAnyRole('ROLE_ADMIN')"></th>
 
-                    </tr>
-                </thead>
-                <tbody th:each="paciente : ${pacientes}">
-                    <tr>
-                        <th th:text="${paciente.dni}"></th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr th:each=" paciente, iterStat : ${pacientes}" th:if="${paciente.nombre != 'adm'}">
+           
+                <th th:text="${paciente.dni}"></th>
                         <td th:text="${paciente.nombre}"></td>
                         <td th:text="${paciente.email}"></td>
                         <td th:text="${paciente.obraSocial}"></td>
-                        <td>
-                            <a><img th:if="${paciente.imagen != null}" class="logo img-fluid"
-                                    th:src="@{/imagen/perfil/__${paciente.dni}__}" style="max-width: 100px; max-height: 100px;"></a>
+                        <td >
+                            <img th:if="${paciente.imagen != null}"
+                                    class="logo img-fluid"
+                                    th:src="@{/imagen/perfil/__${paciente.dni}__}"
+                                    style="max-width: 100px; max-height: 100px;">
                         </td>
-                        <td>
-                            <a sec:authorize="hasRole('ADMIN')" th:href="@{/paciente/modificar/__${paciente.id}__}"><i
+                        <td sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                            <a th:href="@{/paciente/modificar/__${paciente.dni}__}"><i
                                     class="fas fa-feather-alt"></i> Modificar </a>
                         </td>
-                    </tr>
 
-                </tbody>
-            </table>
 
-            <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito">
-                <div class="card-body">
-                    <h5 class="card-title">Exito ð</h5>
-                    <p class="card-text" th:text="${exito}"></p>
-                </div>
-            </div>
-            <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError">
-                <div class="card-body">
-                    <h5 class="card-title">Error ð</h5>
-                    <p class="card-text" th:text="${error}"></p>
-                </div>
-            </div>
+                <td sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                  <a
+                    th:href="@{/paciente/eliminar/__${paciente.dni}__}"
+                    class="btn btn-outline-danger rounded-0"
+                    ><i class="fas fa-trash"></i> Eliminar
+                  </a>
+                </td>
 
-            <section class="py-5 text-center container">
-                <div class="row py-lg-5">
-                    <div class="col-lg-6 col-md-8 mx-auto">
-                        <a th:href="@{/inicio}" class="btn btn-primary my-2">Volver</a>
-                        </p>
+                <div
+                  class="modal fade"
+                  th:id="'myModalEdit-' + ${iterStat.index}"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <!-- Encabezado del modal -->
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          Editar Paciente
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+
+                    
                     </div>
+                  </div>
                 </div>
-            </section>
+              </tr>
+            </tbody>
+          </table>
         </div>
-    </div>
-          
-        <footer class="mt-8 mb-0 text-center text-white p-7 bg-green-800  ">
-            <p>&copy; 2023 SaludAPP. Todos los derechos reservados.</p>
-            <p class="float-end mb-1">
-                    <a href="#" style="text-decoration:none"><span>⬆️</span> Back to top</a>
-            </p>
+
+        <div
+          th:if="${exito}!=null"
+          class="card text-white bg-success mb-3 mt-3 mensajeExito"
+        >
+          <div class="card-body">
+            <h5 class="card-title">Exito ð</h5>
+            <p class="card-text" th:text="${exito}"></p>
+          </div>
+        </div>
+        <div
+          th:if="${error}!=null"
+          class="card text-white bg-danger mb-3 mensajeError"
+        >
+          <div class="card-body">
+            <h5 class="card-title">Error ð</h5>
+            <p class="card-text" th:text="${error}"></p>
+          </div>
+        </div>
+
+        <section class="py-5 text-center container">
+          <div class="row">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <a
+                type="button"
+                class="btn btn-dark"
+                th:href="@{/paciente/registrar}"
+              >
+                Crear Paciente
+            </a>
+              <a  th:href="@{/inicio}" class="btn btn-primary my-2">Volver</a>
+            </div>
+          </div>
+        </section>
+
+        
+      </div>
+
+        <footer class="text-center text-white bg-green-800">
+          <p>&copy; 2023 SaludAPP. Todos los derechos reservados.</p>
         </footer>
 
-
-
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+      <script src="/ToyCansadoJefe-developerSinHerencia/src/main/resources/static/js/especializaciones.js"></script>
+      <!-- Tu archivo de scripts jQuery -->
+      <!-- JavaScript Bundle with Popper -->
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-</body>
-
+        crossorigin="anonymous"
+      ></script>
+    </div>
+  </body>
 </html>
-

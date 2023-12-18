@@ -2,7 +2,7 @@
     <div class="containerImg">
       <a href="/" class="navbar-brand d-flex align-items-center">
         <img
-          class="logo w-8 h-8 mr-2"
+          class="logo w-8 h-8 ml-2 mr-2"
           src="/Img/logo0.png"
           alt="Logo SaludApp"
         />
@@ -53,14 +53,11 @@
           </a>
         </li>
 
-        <li class="nav-item dropdown">
+        <li sec:authorize="hasAnyRole('ROLE_ADMIN')" class="nav-item dropdown">
           <a
-            sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')"
-            class="nav-link dropdown-toggle"
-            href="#"
+            class="nav-link dropdown"
+            href="/doctor/lista"
             id="navbarDropdown1"
-            role="button"
-            data-bs-toggle="dropdown"
             aria-expanded="false"
             ><span
               style="
@@ -72,25 +69,11 @@
               >Doctores</span
             ></a
           >
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-            <li>
-              <a class="dropdown-item" th:href="@{/doctor/registrar}"
-                >Crear Doctor</a
-              >
-            </li>
-            <li><hr class="dropdown-divider" /></li>
-            <li>
-              <a class="dropdown-item" th:href="@{/doctor/lista}"
-                >Listar Doctores</a
-              >
-            </li>
-          </ul>
-        </li>
-        <li
-          sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')"
-          class="nav-item dropdown"
-        >
-          <a
+        
+        
+        <li sec:authorize="hasAnyRole('ROLE_ADMIN')" class="nav-item dropdown">
+          <a 
+            sec:authorize="hasAnyRole('ROLE_ADMIN')"
             class="nav-link dropdown"
             href="/obrasocial/lista"
             id="navbarDropdown1"
@@ -102,7 +85,7 @@
                 font-weight: normal;
                 font-family: 'Arial', sans-serif;
               "
-              >Obra Social</span
+              >Obras Sociales</span
             ></a
           >
         </li>
@@ -126,7 +109,7 @@
         </li>
 
         <li
-          sec:authorize="hasAnyRole('ROLE_PACIENTE', 'ROLE_DOCTOR', 'ROLE_ADMIN')"
+          sec:authorize="hasAnyRole('ROLE_ADMIN')"
           class="nav-item dropdown"
         >
           <a

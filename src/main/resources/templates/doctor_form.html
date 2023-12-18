@@ -5,308 +5,246 @@
     <meta charset="ISO-8859-1">
     <title>Registro de Doctores</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-              crossorigin="anonymous">
-        <script src="/static/js/carousel-script.js"></script>
-        <link rel="stylesheet" href="/static/css/index.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="/static/js/carousel-script.js"></script>
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,800;1,900&display=swap">
-    <style>
-        .form-control {
-            width: 75rem;
-        }
+    <link rel="stylesheet" href="/ToyCansadoJefe-developerSinHerencia/src/main/resources/static/css/doctor_form.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 
-        .contenedor-checkboxes {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,800;1,900&display=swap">
 
-        .contenedor-checkboxes fieldset {
-            width: 75rem;
-            /* Ajusta según tu diseño */
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .form-group-select {
-            margin-top: 10px;
-        }
-        .select-container {
-            margin-right: 10px; 
-        }
-    </style>
-
+        <style>
+            body {
+              margin: 0;
+              padding: 0;
+              display: flex;
+              flex-direction: column;
+              min-height: 100vh; /* Asegura que el contenido ocupe al menos toda la altura de la pantalla */
+              background-image: url("/img/fondoverde.jpeg"); /* Reemplaza esta ruta con la ubicación de tu imagen */
+              background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
+            }
+      
+            .content {
+              flex: 1; /* Hace que este div ocupe todo el espacio restante */
+              /* Otros estilos para el contenido si es necesario */
+            }
+      
+           
+          </style>
+          
 </head>
 
 <body class="bg-gray-100 m-0 p-0 bc">
-    <div class="container-fluid">
+    <div class="flex-grow flex items-center justify-center">
 
-        <nav class="navbar navbar-expand-lg navBar bg-green-600">
-            <div class="containerImg">
-                <a href="/" class="navbar-brand d-flex align-items-center">
-                    <img class="logo w-8 h-8 mr-2" src="/Img/logo0.png" alt="Logo SaludApp">
-                    <span class="text-white text-lg font-bold">SaludAPP</span>
-                </a>
-            </div>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse elementosNav" id="navbarNavDropdown">
-                <ul class="navbar-nav ms-auto elementos">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Doctores
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                            <li><a class="dropdown-item" th:href="@{/doctor/registrar}">Crear Doctor</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" th:href="@{/doctor/lista}">Listar Doctor</a></li>
-                        </ul>
-                    </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Obra Sociales
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                            <li><a class="dropdown-item" th:href="@{/obrasocial/registrar}">Crear Obra Social</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" th:href="@{/obrasocial/lista}">Listar Obras Sociales</a></li>
-                        </ul>
-                    </li>
+        <div class="container-fluid m-3 contenedor">
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Especializaciones
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                            <li><a class="dropdown-item" th:href="@{/especializacion/registrar}">Crear
-                                    Especialización</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" th:href="@{/especializacion/lista}">Listar
-                                    Especializaciones</a></li>
-                        </ul>
-                    </li>
+            <div class="container max-w-screen-md bg-gradient-to-t from-green-400 to-blue-300 p-2 rounded-lg ">
+                <form
+                    class=" max-w-screen-sm mx-auto mt-8 mb-4 bg-gradient-to-b from-blue-300 to-green-400 p-0 rounded-lg"
+                    th:action="@{/doctor/registro/}" method="POST" enctype="multipart/form-data">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-1">
+                            <label class="mb-2 flex items-center">
+                                <!-- Ícono de usuario de Font Awesome -->
+                                <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18"
+                                    viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                    <path
+                                        d="M0 96l576 0c0-35.3-28.7-64-64-64H64C28.7 32 0 60.7 0 96zm0 32V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128H0zM64 405.3c0-29.5 23.9-53.3 53.3-53.3H234.7c29.5 0 53.3 23.9 53.3 53.3c0 5.9-4.8 10.7-10.7 10.7H74.7c-5.9 0-10.7-4.8-10.7-10.7zM176 192a64 64 0 1 1 0 128 64 64 0 1 1 0-128zm176 16c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16z" />
+                                </svg>
+                                <i class="fas fa-user-circle text-gray-400 mr-2"></i>
+                                DNI
+                            </label>
+                            <input type="text" class="form-control" name="id" placeholder="DNI del Doctor">
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Pacientes
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                            <li><a class="dropdown-item" th:href="@{/paciente/registrar}">Crear Paciente</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" th:href="@{/paciente/lista}">Listar Paciente</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a sec:authorize="hasRole('PACIENTE')" class="nav-link" href="/logout">Cerrar Sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="navbarDropdown4" role="button">
-                            Contacto
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <div class="container-fluid m-5 contenedor">
+                            <label class="mb-2 flex items-center"> <svg xmlns="http://www.w3.org/2000/svg" height="16"
+                                    width="18"
+                                    viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                    <path
+                                        d="M256 0h64c17.7 0 32 14.3 32 32V96c0 17.7-14.3 32-32 32H256c-17.7 0-32-14.3-32-32V32c0-17.7 14.3-32 32-32zM64 64H192v48c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V64H512c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128C0 92.7 28.7 64 64 64zM176 437.3c0 5.9 4.8 10.7 10.7 10.7H389.3c5.9 0 10.7-4.8 10.7-10.7c0-29.5-23.9-53.3-53.3-53.3H229.3c-29.5 0-53.3 23.9-53.3 53.3zM288 352a64 64 0 1 0 0-128 64 64 0 1 0 0 128z" />
+                                </svg>
 
-            <form class="formulario" th:action="@{/doctor/registro/}" method="POST" enctype="multipart/form-data">
-                <div class="form-group my-3">
-                    <label class="mb-2">DNI</label>
-                    <input type="text" class="form-control" name="id" placeholder="DNI del Doctor">
-                    <label class="mb-2">Matricula del Doctor</label>
-                    <input type="text" class="form-control" name="matricula" placeholder="Matricula del Doctor">
-                    <label class="mb-2">Nombre del Doctor</label>
-                    <input type="text" class="form-control" name="nombre" placeholder="Nombre del Doctor">
-                    <label class="mb-2">Telefono</label>
-                    <input type="text" class="form-control" name="telefono" placeholder="Telefono del Doctor">
-                    <label class="mb-2">Email del Doctor</label>
-                    <input type="text" class="form-control" name="email" placeholder="Email del Doctor">
-                    <label class="mb-2">Password del Doctor</label>
-                    <input type="password" class="form-control" name="password" placeholder="Password del Doctor">
-                    <label class="mb-2">Password del Doctor</label>
-                    <input type="password" class="form-control" name="password2" placeholder="Reingrese Password del Doctor">
-                    <label class="mb-2">Precio de la Consulta</label>
-                    <input type="text" class="form-control" name="precioConsulta" placeholder="Precio de la Consulta">
-                    <div class="form-group my-3">
-                        <select name="idespecializacion">
+                                <i class="fas fa-user-circle text-gray-400 mr-2"></i>Matricula del Doctor</label>
+                            <input type="text" class="form-control" name="matricula" placeholder="Matricula del Doctor">
 
-                            <option>Seleccionar Especialización</option>
 
-                            <option th:each="especializacion : ${especializaciones}" th:value="${especializacion.id}"
-                                th:text="${especializacion.nombre}" />
-                        </select>
-                    </div>
-                   <!-- <div class="form-group my-3">
+                            <label class="mb-2 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" height="16"
+                                    width="20"
+                                    viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                    <path
+                                        d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                </svg> Nombre del Doctor</label>
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre del Doctor">
+
+                            <label class="mb-2 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" height="16"
+                                    width="12"
+                                    viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                    <path
+                                        d="M80 0C44.7 0 16 28.7 16 64V448c0 35.3 28.7 64 64 64H304c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H80zm80 432h64c8.8 0 16 7.2 16 16s-7.2 16-16 16H160c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
+                                </svg>Telefono</label>
+                            <input type="text" class="form-control" name="telefono" placeholder="Telefono del Doctor">
+                            <label class="mb-2 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" height="16"
+                                    width="16"
+                                    viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                    <path
+                                        d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
+                                </svg>Email del Doctor</label>
+                            <input type="text" class="form-control" name="email" placeholder="Email del Doctor">
+                            <label class="mb-2 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" height="16"
+                                    width="14"
+                                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                    <path
+                                        d="M144 144c0-44.2 35.8-80 80-80c31.9 0 59.4 18.6 72.3 45.7c7.6 16 26.7 22.8 42.6 15.2s22.8-26.7 15.2-42.6C331 33.7 281.5 0 224 0C144.5 0 80 64.5 80 144v48H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V256c0-35.3-28.7-64-64-64H144V144z" />
+                                </svg>Password del Doctor</label>
+                            <input type="password" class="form-control" name="password"
+                                placeholder="Password del Doctor">
+                            <label class="mb-2 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" height="16"
+                                    width="14"
+                                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                    <path
+                                        d="M144 144c0-44.2 35.8-80 80-80c31.9 0 59.4 18.6 72.3 45.7c7.6 16 26.7 22.8 42.6 15.2s22.8-26.7 15.2-42.6C331 33.7 281.5 0 224 0C144.5 0 80 64.5 80 144v48H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V256c0-35.3-28.7-64-64-64H144V144z" />
+                                </svg>Password del Doctor</label>
+                            <input type="password" class="form-control" name="password2"
+                                placeholder="Reingrese Password del Doctor">
+                            <label class="mb-2 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" height="16"
+                                    width="18"
+                                    viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                    <path
+                                        d="M64 32C28.7 32 0 60.7 0 96v32H576V96c0-35.3-28.7-64-64-64H64zM576 224H0V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V224zM112 352h64c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm112 16c0-8.8 7.2-16 16-16H368c8.8 0 16 7.2 16 16s-7.2 16-16 16H240c-8.8 0-16-7.2-16-16z" />
+                                </svg>Precio de la Consulta</label>
+                            <input type="text" class="form-control" name="precioConsulta"
+                                placeholder="Precio de la Consulta">
+                            <div class="form-group my-3">
+                                <select name="idespecializacion">
+
+                                    <option>Seleccionar Especialización</option>
+
+                                    <option th:each="especializacion : ${especializaciones}"
+                                        th:value="${especializacion.id}" th:text="${especializacion.nombre}" />
+                                </select>
+                            </div>
+                            <!-- <div class="form-group my-3">
                         <select id="rol" name="rol">
                             <option>Seleccionar Rol</option>
                             <option th:each="rol : ${T(com.salud.equipoT.enums.Rol).values()}" th:value="${rol}" th:text="${rol}"/>
                         </select>
                     </div>-->
-                    <div class="mb-4">
-                        <br>
-                        <input type="file" class="form-control" name="archivo">
-                    </div>
-                    <div class="form-group my-3">
-                        <div class="select-container">
-                            <select name="horarioInicio">
-                                <option>Horario Inicio</option>
-                                <option value="06:00">06:00</option>
-                                <option value="06:30">06:30</option>
-                                <option value="07:00">07:00</option>
-                                <option value="07:30">07:30</option>
-                                <option value="08:00">08:00</option>
-                                <option value="08:30">08:30</option>
-                                <option value="09:00">09:00</option>
-                                <option value="09:30">09:30</option>
-                                <option value="10:00">10:00</option>
-                                <option value="10:30">10:30</option>
-                                <option value="11:00">11:00</option>
-                                <option value="11:30">11:30</option>
-                                <option value="12:00">12:00</option>
-                                <option value="12:30">12:30</option>
-                                <option value="13:00">13:00</option>
-                                <option value="13:30">13:30</option>
-                                <option value="14:00">14:00</option>
-                                <option value="14:30">14:30</option>
-                                <option value="15:00">15:00</option>
-                                <option value="15:30">15:30</option>
-                                <option value="16:00">16:00</option>
-                                <option value="16:30">16:30</option>
-                                <option value="17:00">17:00</option>
-                                <option value="17:30">17:30</option>
-                                <option value="18:00">18:00</option>
-                                <option value="18:30">18:30</option>
-                                <option value="19:00">19:00</option>
-                                <option value="19:30">19:30</option>
-                                <option value="20:00">20:00</option>
-                                <option value="20:30">20:30</option>
-                                <option value="21:00">21:00</option>
-                                <option value="21:30">21:30</option>
-                                <option value="22:00">22:00</option>
-                                <option value="22:30">22:30</option>
-                                <option value="23:00">23:00</option>
-                                <option value="23:30">23:30</option>
-                            </select>
-                                        
-                            <select name="horarioFin">                  
-                                <option>Horario Final</option>
-                                <option value="06:00">06:00</option>
-                                <option value="06:30">06:30</option>
-                                <option value="07:00">07:00</option>
-                                <option value="07:30">07:30</option>
-                                <option value="08:00">08:00</option>
-                                <option value="08:30">08:30</option>
-                                <option value="09:00">09:00</option>
-                                <option value="09:30">09:30</option>
-                                <option value="10:00">10:00</option>
-                                <option value="10:30">10:30</option>
-                                <option value="11:00">11:00</option>
-                                <option value="11:30">11:30</option>
-                                <option value="12:00">12:00</option>
-                                <option value="12:30">12:30</option>
-                                <option value="13:00">13:00</option>
-                                <option value="13:30">13:30</option>
-                                <option value="14:00">14:00</option>
-                                <option value="14:30">14:30</option>
-                                <option value="15:00">15:00</option>
-                                <option value="15:30">15:30</option>
-                                <option value="16:00">16:00</option>
-                                <option value="16:30">16:30</option>
-                                <option value="17:00">17:00</option>
-                                <option value="17:30">17:30</option>
-                                <option value="18:00">18:00</option>
-                                <option value="18:30">18:30</option>
-                                <option value="19:00">19:00</option>
-                                <option value="19:30">19:30</option>
-                                <option value="20:00">20:00</option>
-                                <option value="20:30">20:30</option>
-                                <option value="21:00">21:00</option>
-                                <option value="21:30">21:30</option>
-                                <option value="22:00">22:00</option>
-                                <option value="22:30">22:30</option>
-                                <option value="23:00">23:00</option>
-                                <option value="23:30">23:30</option>
-                            </select>
+                            <div class="mb-4">
+                                <br>
+                                <input type="file" class="form-control" name="archivo">
+                            </div>
+                            <div class="form-group my-3">
+                                <div class="select-container">
+                                        <select name="horarioInicio">
+                                            <option>Horario Inicio</option>
+                                            <option value="8">08:00</option>
+                                            <option value="9">09:00</option>
+                                            <option value="10">10:00</option>
+                                            <option value="11">11:00</option>
+                                            <option value="12">12:00</option>
+                                            <option value="13">13:00</option>
+                                            <option value="14">14:00</option>
+                                            <option value="15">15:00</option>
+                                            <option value="16">16:00</option>
+                                            <option value="17">17:00</option>
+                                            <option value="18">18:00</option>
+                                            <option value="19">19:00</option>
+                                            <option value="20">20:00</option>
+                                        </select>
+
+                                        <select name="horarioFin">                  
+                                            <option>Horario Final</option>
+                                            <option value="8">08:00</option>
+                                            <option value="9">09:00</option>
+                                            <option value="10">10:00</option>
+                                            <option value="11">11:00</option>
+                                            <option value="12">12:00</option>
+                                            <option value="13">13:00</option>
+                                            <option value="14">14:00</option>
+                                            <option value="15">15:00</option>
+                                            <option value="16">16:00</option>
+                                            <option value="17">17:00</option>
+                                            <option value="18">18:00</option>
+                                            <option value="19">19:00</option>
+                                            <option value="20">20:00</option>
+                                        </select>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-span-1">
+                            <label for=" fecha" class="mb-2 flex items-center"><svg xmlns="http://www.w3.org/2000/svg"
+                                    height="16" width="16"
+                                    viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                    <path
+                                        d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                                </svg>Observaciones</label>
+                            <textarea name="observaciones" id="" cols="35" rows="10"></textarea>
+
+
+                            <div class="col-span-1">
+                                <div class="contenedor-checkboxes">
+                                    <fieldset>
+                                        <legend>DÃ­as de AtenciÃ³n del Doctor</legend>
+                                        <label>
+                                            <div class="form-group my-3">
+                                                <input type="checkbox" name="atencion" value="1"> Lunes
+                                            </div>
+                                        </label>
+                                        <label>
+                                            <div class="form-group my-3">
+                                                <input type="checkbox" name="atencion" value="2"> Martes
+                                            </div>
+                                        </label>
+                                        <label>
+                                            <div class="form-group my-3">
+                                                <input type="checkbox" name="atencion" value="3"> Miercoles
+                                            </div>
+                                        </label>
+                                        <label>
+                                            <div class="form-group my-3">
+                                                <input type="checkbox" name="atencion" value="4"> Jueves
+                                            </div>
+                                        </label>
+                                        <label>
+                                            <div class="form-group my-3">
+                                                <input type="checkbox" name="atencion" value="5"> Viernes
+                                            </div>
+                                        </label>
+                                        <label>
+                                            <div class="form-group my-3">
+                                                <input type="checkbox" name="atencion" value="6"> Sabado
+                                            </div>
+                                        </label>
+                                        <label>
+                                            <div class="form-group my-3">
+                                                <input type="checkbox" name="atencion" value="0"> Domingo
+                                            </div>
+                                        </label>
+                                    </fieldset>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group my-3">
-                        <label for="fecha" class="col-sm-2 col-form-label">Observaciones</label>
-                        <textarea name="observaciones" id="" cols="60" rows="10"></textarea>
-                    </div>
-                    
-                    <div class="contenedor-checkboxes">
-                        <fieldset>
-                            <legend>Días de Atención del Doctor</legend>
-                            <label>
-                                <div class="form-group my-3">
-                                    <input type="checkbox" name="atencion" value="Lunes"> Lunes
-                                    
-                                </div>
-                            </label>
-                            <label>
-                                <div class="form-group my-3">
-                                    <input type="checkbox" name="atencion" value="Martes"> Martes
-                                </div>
-                            </label>
-                            <label>
-                                <div class="form-group my-3">
-                                    <input type="checkbox" name="atencion" value="Miercoles"> Miercoles
-                                </div>
-                            </label>
-                            <label>
-                                <div class="form-group my-3">
-                                    <input type="checkbox" name="atencion" value="Jueves"> Jueves
-                                </div>
-                            </label>
-                            <label>
-                                <div class="form-group my-3">
-                                    <input type="checkbox" name="atencion" value="Viernes"> Viernes
-                                </div>
-                            </label>
-                            <label>
-                                <div class="form-group my-3">
-                                    <input type="checkbox" name="atencion" value="Sabado"> Sabado
-                                </div>
-                            </label>
-                            <label>
-                                <div class="form-group my-3">
-                                    <input type="checkbox" name="atencion" value="Domingo"> Domingo
-                                </div>
-                            </label>
-                        </fieldset>
 
-                    </div>
-                </div>
+                    <!-- Contenedor para centrar y alinear los botones -->
+                    <div class="flex justify-center items-center align-middle space-x-4">
+                        <!-- Botón Guardar -->
+                        <button type="submit"
+                            class="rounded-full bg-blue-500 text-white px-4 py-2 mt-3 mr-1 mb-3">Guardar</button>
 
-                <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
+                        <!-- Botón Volver -->
+                        <a th:href="@{/inicio}"
+                            class="rounded-full bg-gray-500 text-white px-4 py-2 my-2 botonVolver botones">Volver</a>
+                    </div>
+                </form>
+            </div>
+            <!-- ... (otras partes del código) ... -->
             </form>
 
             <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito">
@@ -321,23 +259,21 @@
                     <p class="card-text" th:text="${error}"></p>
                 </div>
             </div>
-            <section class=" text-center container">
+            <!--<section class=" text-center container">
                 <div class="row mt-3">
                     <div class="divVolver">
                         <a th:href="@{/inicio}" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
                     </div>
                 </div>
-            </section>
+            </section> -->
+
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-        
-        <footer class="mt-8 mb-0 text-center text-white p-7 bg-green-800  ">
-            <p>&copy; 2023 SaludAPP. Todos los derechos reservados.</p>
-            <p class="float-end mb-1">
-                    <a href="#" style="text-decoration:none"><span>⬆️</span> Back to top</a>
-            </p>
-        </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+
 </body>
 
 </html>

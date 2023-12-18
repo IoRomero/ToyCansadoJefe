@@ -100,8 +100,8 @@ public class PacienteService implements UserDetailsService{
         }
 
     @Transactional
-    public void eliminarPaciente(Paciente paciente) {
-        pacienteRepository.delete(paciente);
+    public void eliminarPaciente(Long pacienteId) {
+        pacienteRepository.deleteById(pacienteId);
     }
     public Paciente findByEmail(String email){
         return pacienteRepository.findByEmail(email);

@@ -1,6 +1,7 @@
 package com.salud.equipoT.service;
 
 import com.salud.equipoT.entidad.Doctor;
+import com.salud.equipoT.entidad.Paciente;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.salud.equipoT.entidad.Turno;
 import com.salud.equipoT.repository.TurnoRepository;
+import java.time.DayOfWeek;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,19 +40,9 @@ public class TurnoService {
     return turno;
 
   }
-  
-  /*@Transactional
-  private void sacarTurno(Paciente paciente, Disponibilidad disponibilidad){
-      Turno turno = new Turno();
-      turno.setDisponibilidad(disponibilidad);
-      turno.setPaciente(paciente);
-      turno.setBaja(false);
-
-      turnoRepository.save(turno);
-  }*/
 
   @Transactional
-  public void modificarTurno(Long turnoId, boolean reservado) throws Exception {
+  public void modificarTurno(Long turnoId, boolean reservado, Paciente paciente) throws Exception {
 
     Optional<Turno> respuestaTurno = turnoRepositorio.findById(turnoId);
 
@@ -59,21 +51,26 @@ public class TurnoService {
 
       turno.setReservado(reservado);
 
+      turno.setPaciente(paciente);
+
+      System.out.println(turno);
 
       turnoRepositorio.save(turno);
     }
   }
 
+  public Turno getOne(Long id) {
+    return turnoRepositorio.findById(id).orElse(null);
+  }
+
   @Transactional
-  public void eliminarTurno(Long turnoId){
+  public void eliminarTurno(Long turnoId) {
     turnoRepositorio.deleteById(turnoId);
   }
 
-
-  
   public Turno[][] generarTurnos(Long DoctorId, String fechaInicial, int[] diasDeAtencion, int[] horariosDeAtencion) {
 
-    Doctor doctor = doctorServicio.getOne(DoctorId);
+    boolean existenTurnosParaFechaInicial = doctorServicio.existenTurnosParaFecha(DoctorId, fechaInicial);
 
     List<Turno> calendario = new ArrayList();
 
@@ -97,10 +94,11 @@ public class TurnoService {
       for (int j = 0; j < 13; j++) {
 
         calendar.set(Calendar.HOUR_OF_DAY, horario);
-        
+
         Date fechaTurno = calendar.getTime();
-        System.out.println(fechaTurno);
         Turno turno = crearTurno(fechaTurno);
+
+        turno.setIdDoctor(DoctorId);
 
         semanaCalendario[i][j] = turno;
 
@@ -128,19 +126,7 @@ public class TurnoService {
       diaDeLaSemana++;
     }
 
-  //  doctor.setTurnos(calendario);
-
-    System.out.println(doctor);
-
-  /* try {
-      doctorServicio.modificarDoctor(doctor.getMatricula());
-
-    } catch (Exception e) {
-
-      e.printStackTrace();
-
-    } */ 
-
+    doctorServicio.agregarTurnos(DoctorId, calendario);
 
 //    for (int i = 0; i < 7; i++) {
 //      System.out.println("Día " + (i + 1) + ":");
@@ -148,8 +134,6 @@ public class TurnoService {
 //        System.out.println(semanaCalendario[i][j]);
 //      }
 //    }
-
-
     return invertirMatriz(semanaCalendario);
   }
 
@@ -170,31 +154,22 @@ public class TurnoService {
     for (Turno turno : calendarioDoctor) {
       Calendar calendar = Calendar.getInstance();
       calendar.setTime(turno.getFechaInicio());
-      
-      System.out.println(turno.getFechaInicio());
-      
-      System.out.println(calendar.get(Calendar.DAY_OF_WEEK));
 
       if (turno.getFechaInicio().compareTo(fechaInicia) >= 0) {
         int posicionDia = calendar.get(Calendar.DAY_OF_WEEK) - 1;
         int posicionHora = calendar.get(Calendar.HOUR_OF_DAY) - 8;
-        
-        System.out.println(posicionDia);
-        System.out.println(posicionHora);
-        
-        semanaCalendario[posicionDia][posicionHora] = turno;        
-      }      
-      
+
+        semanaCalendario[posicionDia][posicionHora] = turno;
+      }
     }
 
-//    for (int i = 0; i < 7; i++) {
-//      System.out.println("Día " + (i + 1) + ":");
-//      for (int j = 0; j < 13; j++) {
-//        System.out.println(semanaCalendario[i][j]);
-//      }
-//    }
-
     return invertirMatriz(semanaCalendario);
+  }
+  
+  public List<Turno> buscarTurnosPorPaciente(Long PacienteId) {
+    List<Turno> misTurnos = null;
+    
+    return misTurnos;
   }
 
   public Turno[][] invertirMatriz(Turno[][] matrizOriginal) {
@@ -221,7 +196,6 @@ public class TurnoService {
       }
     }
     return false;
-
   }
 
   private boolean esHorarioDeAtencion(int horario, int[] horariosDeAtencion) {
@@ -234,4 +208,20 @@ public class TurnoService {
     return false;
   }
 
+  public static String obtenerDomingoEnString(LocalDate fechaHoy) {
+
+    DayOfWeek diaDeLaSemana = fechaHoy.getDayOfWeek();
+
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    int diasParaDomingo = diaDeLaSemana.getValue() - DayOfWeek.SUNDAY.getValue();
+
+    if (diasParaDomingo < 0) {
+      diasParaDomingo += 7;
+    }
+
+    LocalDate domingoSemanaAnterior = fechaHoy.minusDays(diasParaDomingo);
+
+    return domingoSemanaAnterior.format(formato);
+  }
 }

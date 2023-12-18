@@ -30,6 +30,7 @@ public class Doctor{
     @Id
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
+    
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "email", unique=true)
@@ -45,10 +46,12 @@ public class Doctor{
     private Long matricula;
     @Column()
     private LocalDate alta;
-    @OneToMany(mappedBy = "doctor")
-    private List<DiaAtencion> atencion;
-    private LocalTime horarioInicio;
-    private LocalTime horarioFin;
+   
+    @OneToMany
+    private List<DiaAtencion> diasAtencion;
+    
+    private String horarioInicio;
+    private String horarioFin;
     private Double precioConsulta;
     private Double puntuacion;
     private String observaciones;
@@ -59,7 +62,7 @@ public class Doctor{
     private Especializacion especializacion;
 
     @OneToMany()
-    private List<Turno> turnosCreados = new ArrayList<>();
+    private List<Turno> turnosCreados;
 
     @OneToMany
     private List<Consulta> historialConsultas;

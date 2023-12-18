@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -19,17 +21,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.salud.equipoT.entidad.DiaAtencion;
 import com.salud.equipoT.entidad.Doctor;
 import com.salud.equipoT.entidad.Especializacion;
+import com.salud.equipoT.entidad.ObraSocial;
+import com.salud.equipoT.entidad.Paciente;
+import com.salud.equipoT.entidad.Turno;
 import com.salud.equipoT.excepciones.MiException;
-import com.salud.equipoT.repository.DiaAtencionRepository;
-import com.salud.equipoT.repository.DoctorRepository;
 import com.salud.equipoT.service.DiaAtencionService;
 import com.salud.equipoT.service.DoctorService;
 import com.salud.equipoT.service.EspecializacionService;
+import com.salud.equipoT.service.ObraSocialService;
 import com.salud.equipoT.service.PacienteService;
+import com.salud.equipoT.service.TurnoService;
+
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -39,14 +45,15 @@ public class DoctorController {
    /*  @Autowired
     private TurnoService turnoService;*/
     @Autowired
-    private PacienteService pacienteService;
-    @Autowired
-    private DiaAtencionService diaAtencionService;
-    @Autowired
     private EspecializacionService especializacionService;
     @Autowired
     private DoctorService doctorService;
-
+    @Autowired
+    private PacienteService pacienteService;
+    @Autowired
+    private ObraSocialService obraSocialService;
+    @Autowired
+    private TurnoService turnoService;
 
     @GetMapping("/registrar") 
     public String registrar(Model model) {
@@ -71,40 +78,52 @@ public class DoctorController {
             @RequestParam String idespecializacion,
             @RequestParam MultipartFile archivo,
             @RequestParam List<String> atencion,
-            @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime horarioInicio,
-            @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime horarioFin,
+            @RequestParam String horarioInicio,
+            @RequestParam String horarioFin,
             @RequestParam(required = false) String observaciones,
-           
             ModelMap modelo) throws Exception {
-
-        try {
-            doctorService.crearDoctor(id, nombre, telefono, email, password, password2, telefono, puntuacion, precioConsulta, idespecializacion, archivo, atencion, horarioInicio, horarioFin, observaciones);
-
-        } catch (MiException ex) {
+  
+      try {
+  
+        doctorService.crearDoctor(id, nombre, telefono, email, password, password2, telefono, puntuacion, precioConsulta, idespecializacion, archivo, atencion, horarioInicio, horarioFin, observaciones);
+  
+      }catch (MiException ex) {
 
             modelo.put("error", ex.getMessage());
             return "doctor_form";
         }
-        return "redirect:/login";
+        return "redirect:/turnero/generar/" + id;
     }
 
     //@PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROFESIONAL')")
-    @GetMapping("/lista") //localhost:8080/doctor/listar
+    @GetMapping("/listaActivos") //localhost:8080/doctor/listar
     public String listarProfesionalesActivos(Model model) {
         List<Doctor> doctores = doctorService.listarDoctoresActivos();
         model.addAttribute("doctores", doctores);
 
-        return "doctor_lista";
+        return "doctor_list.html";
 
     }
+    @PostMapping("/consulta/crear")
+  public String crearConsulta(Long turnoId, ModelMap modelo) {
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @GetMapping("/listarAdmin") //localhost:8080/profesional/listar
+    Turno turno = turnoService.getOne(turnoId);
+    Doctor doctor = doctorService.doctorPorId(turno.getIdDoctor());
+
+    System.out.println(doctor);
+
+    modelo.put("turno", turno);
+    modelo.put("doctor", doctor);
+
+    return "consulta_form";
+  }
+
+    @GetMapping("/lista") //localhost:8080/profesional/listar
     public String listarDoctores(Model model) {
         List<Doctor> doctores = doctorService.listarTodosDoctores();
         model.addAttribute("doctores", doctores);
 
-        return "PanelAdminDoctores";
+        return "doctor_list.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL','ROLE_ADMIN')")
@@ -139,20 +158,21 @@ public class DoctorController {
             @RequestParam String email,
             @RequestParam String password,
             @RequestParam String password2,
-            @RequestParam String matricula,
+            @RequestParam Long matricula,
             @RequestParam(required = false) Double puntuacion,
             @RequestParam Double precioConsulta,
-            @RequestParam String idespecializacion,
+          
             @RequestParam MultipartFile archivo,
-            @RequestParam List<String> atencion,
-            @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime horarioInicio,
-            @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime horarioFin,
+              @RequestParam String idespecializacion,
+            @RequestParam List<String> diasAtencion,
+            @RequestParam String horarioInicio,
+            @RequestParam String horarioFin,
             @RequestParam(required = false) String observaciones,
             ModelMap model) throws Exception {
 
         try {
 
-            doctorService.modificarDoctor(id, nombre, telefono, email, password, password2, telefono, puntuacion, precioConsulta, archivo, idespecializacion, atencion, horarioInicio, horarioFin, observaciones, Boolean.TRUE);
+            doctorService.modificarDoctor(id, nombre, telefono, email, password, password2, telefono, puntuacion, precioConsulta, archivo, idespecializacion, diasAtencion, horarioInicio, horarioFin, observaciones, Boolean.TRUE);
             return "redirect:/login";
         } catch (MiException ex) {
             model.put("error", ex.getMessage());
@@ -160,16 +180,41 @@ public class DoctorController {
         }
 
     }
-
-
-    @PostMapping("/especializacion/{id}")
-    public String doctoresPorEspecializacion(String especializacionId,ModelMap model)  {
-
-        List<Doctor> doctores = doctorService.findByEspecializacion(especializacionId);
-
-
-        model.put("doctores", doctores);
-        return "perfil.html";
+    
+    @GetMapping("/eliminar/{id}")
+    public String postMethodName(@PathVariable Long id) {
+        //TODO: process POST request
+        doctorService.borrarDoctor(id);
+       return "redirect:../lista";
     }
     
-}
+    @GetMapping("/esp/{id}")
+    public String docPorEsp(@PathVariable String id,ModelMap model) {
+        model.put("doctores", doctorService.findByEspecializacion(id));
+        return "doctor_list.html";
+    }
+    
+
+    @PostMapping("/especializacion/{id}")
+    public String doctoresPorEspecializacion(@PathVariable String id,ModelMap model, Authentication authentication) {
+    if (authentication != null && authentication.isAuthenticated()) {
+        // Verifica si el usuario tiene el rol "ROLE_PACIENTE"
+        if (authentication.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_PACIENTE"))) {
+            // Obtén los detalles del paciente
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+      List<Doctor> doctores = doctorService.findByEspecializacion(id);
+         Paciente paciente = pacienteService.findByEmail(userDetails.getUsername());
+
+            model.put("paciente", paciente);
+            model.put("doctores", doctores);
+        return "doctor_list.html";
+    }} else if (authentication.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_DOCTOR"))) {
+            // Si el usuario tiene el rol "ROLE_DOCTOR", redirige a la página de perfil de doctor
+            return "redirect:/inicio";
+        }
+    
+    // Si no está autenticado o no tiene un rol válido, redirige al login
+    return "redirect:/login.html";
+}}

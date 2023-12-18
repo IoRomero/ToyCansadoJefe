@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form class="formulario" th:action="@{/doctor/consulta/creada}" method="POST">
+
+                        <div class="form-group">
+                            <input th:value="${turno.id}" class="form-control" name="turnoId"></input>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mb-2">Fecha del turno:</label> 
+                            <p th:text="${#dates.format(turno.fechaInicio, 'dd/MM/yyyy H:mm') + 'h'}" class="form-control" name="fechaInicio"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mb-2">Paciente del turno:</label> 
+                            <p th:text="${turno.paciente.nombre}" class="form-control" name="paciente"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mb-2">Doctor del turno:</label> 
+                            <p th:text="${doctor.nombre}" class="form-control" name="doctor"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mb-2">Motivo de la consulta</label> 
+                            <textarea class="form-control" name="motivoConsultar"></textarea>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mb-2">Diagnostico:</label> 
+                            <textarea class="form-control" name="diagnostico"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mb-2">Tratamiento:</label> 
+                            <textarea class="form-control" name="tratamiento"></textarea>
+                        </div>
+                        
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
+                            <a th:href="@{/turnero/reservar/{id}(id=${doctor.id})}" class="btn btn-secondary mt-3">Volver</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

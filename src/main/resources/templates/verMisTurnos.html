@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Ver mis turnos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/turnero.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+
+
+                    <h1>Mis turnos</h1>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Doctor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Iterar sobre la lista de turnos -->
+                            <tr th:each="turno, iterStat : ${misTurnos}">
+                                <td th:text="${turno.fechaInicio}"></td>
+                                <!-- Buscar el médico asociado a este turno usando el índice iterStat.index -->
+                                <td th:text="${doctores[iterStat.index].nombre}"></td>
+                                <!-- Otros datos del turno y médico -->
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-between">
+                        <a th:href="@{'/inicio'}" class="btn btn-secondary mt-3">Volver</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+
+</html>

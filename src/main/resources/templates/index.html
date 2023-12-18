@@ -1,97 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-      crossorigin="anonymous"
-    />
-    <script src="/static/js/carousel-script.js"></script>
-    <link rel="stylesheet" href="/static/css/index.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-    />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,800;1,900&display=swap"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+  <script src="/static/js/carousel-script.js"></script>
+  <link rel="stylesheet" th:href="@{/css/index.css}"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
 
-  <body class="bg-gray-100 m-0 p-0 bc">
-    <div class="container-fluid m-0 p-0">
-      <nav th:replace="/fragments/navbar :: nav"></nav>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,800;1,900&display=swap" />
 
-      <div class="p-7">
-        <h1 class="text-5xl font-bold text-center text-green-600">
-          Bienvenido a SaludAPP
-        </h1>
-        <h3 class="text-2xl text-center text-gray-600 pt-5">
-          Descubre nuestra red de salud
-        </h3>
-      </div>
+</head>
 
-      <div id="carouselNista" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img
-              src="/Img/borrosa.jpg"
-              class="d-block w-50 h-50 mx-auto"
-              alt="Imagen 1"
-            />
-          </div>
-          <div class="carousel-item">
-            <img
-              src="/Img/doctores.jpg"
-              class="d-block w-50 h-50 mx-auto"
-              alt="Imagen 2"
-            />
-          </div>
-          <div class="carousel-item">
-            <img
-              src="/Img/equipo.jpg"
-              class="d-block w-50 h-50 mx-auto"
-              alt="Imagen 3"
-            />
-          </div>
-        </div>
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselNista"
-          data-bs-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Anterior</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselNista"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Siguiente</span>
-        </button>
-      </div>
+<body class=" m-0 p-0 bc" style="background-color: #f1fdf0;">
+  <div class="container-fluid m-0 p-0">
+    <nav th:replace="/fragments/navbar :: nav"></nav>
+
+    <div class="p-7">
+      <h1 class="text-4xl font-bold text-center" style="color:#13b3b9; text-shadow:2px 2px 4px rgba(100, 99, 99, 0.5);">
+        Bienvenido a SaludAPP
+      </h1>
+      <h2 class="text-3xl font-bold text-center text-gray-600 pt-5"
+        style="color: #27c1c4 ;text-shadow:2px 2px 4px rgba(100, 99, 99, 0.5);">
+        Cuidando de tu bienestar con servicios de calidad
+      </h2>
+      <h3 class=" text-2xl text-center text-gray-600 pt-5">En SaludApp nos enorgullece ser tu destino confiable para
+        servicios personalizados y centrados en ti. Estamos comprometidos en brindarte atención de calidad que abarque
+        todas tus necesidades de salud, con un enfoque centrado en vos y servicios diseñados para mejorar tu calidad de
+        vida.
+      </h3>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <div id="carouselNista" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img th:src="@{/img/borrosa1.jpg}" class="d-block"
+            style=" position:relative; left:150px; height:500px; width:1200px; display:flex;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);"
+            alt="Imagen 1" />
+          <div class="carousel-caption d-none d-md-block">
+            <h3
+              style=" position:relative; padding: 0 250px;color:rgb(94, 33, 49);font-size:50px;text-shadow:2px 2px 4px rgba(0, 0, 0, 0.5)">
+              Consultas en Línea</h3>
+            <p
+              style=" font-size:25px;position:relative; text-align: center;color:black; text-shadow:2px 2px 4px rgba(0, 0, 0, 0.5);">
+              Ofrecemos
+              consultas médicas en línea para brindarte acceso rápido y conveniente a nuestros profesionales. Ya sea que
+              necesites asesoramiento sobre un problema específico o una segunda
+              opinión, estamos aquí para ayudarte, sin importar dónde te encuentres.</p>
+          </div>
 
-    <!-- Footer -->
-    <footer class="mt-8 mb-0 text-center text-white p-7 bg-green-800">
-      <p>&copy; 2023 SaludAPP. Todos los derechos reservados.</p>
-      <p class="float-end mb-1">
-        <a href="#" style="text-decoration: none"
-          ><span>⬆️</span> Back to top</a
-        >
-      </p>
-    </footer>
-  </body>
+        </div>
+        <div class="carousel-item">
+          <img th:src="@{/Img/doctores1.jpg}" class="d-block"
+            style=" position:relative; left:150px; height:500px; width:1200px; display:flex;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);"
+            alt="Imagen 2" />
+          <div class="carousel-caption d-none d-md-block">
+            <h3
+              style="position:relative; padding: 0 250px; color:rgb(94, 33, 49); font-size: 50px ;text-shadow:2px 2px 4px rgba(219, 215, 215, 0.5)">
+              Atención Personalizada</h3>
+            <p style=" font-size:25px;position:relative; text-align:center;text-shadow:2px 2px 4px rgba(0, 0, 0, 0.5)">
+              Creemos que cada individuo es único, y así es nuestra aproximación a la atención.
+              Nuestros profesionales altamente capacitados se esfuerzan por entender tus necesidades.
+              específicas y proporcionar soluciones adaptadas a ti.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="/Img/equipo1.jpg" class="d-block"
+            style=" position:relative; left:150px; height:500px; width:1200px; display:flex;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);"
+            alt="Imagen 3" />
+          <div class="carousel-caption d-none d-md-block">
+            <h3
+              style="position:relative; padding: 0 250px; color:rgb(255, 255, 255); font-size: 50px;text-shadow:2px 2px 4px rgba(0, 0, 0, 0.5)">
+              Seguimiento Continuo</h3>
+            <p
+              style=" text-shadow:2px 2px 4px rgba(0, 0, 0, 0.5);padding: top 25px ; font-size:25px;position:relative; text-align:center">
+              Nos preocupamos por tu bienestar a largo plazo. Ofrecemos servicios de seguimiento continuo
+              para garantizar que estés satisfecho con tu atención y para ajustar nuestros servicios según
+              tus necesidades cambiantes.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselNista" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselNista" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+  </div>
+
+  <section class="container mx-auto p-4 md:p-5 bg-cover bg-center relative section ">
+    <div class="md:flex">
+      <div class="md:w-6/12 md:mr-4 doctor">
+        <img src="/Img/doctor-arreglando-servidumbre-mano-paciente.jpg" alt="medico ayudando paciente"
+          class="img-style w-full h-auto rounded">
+      </div>
+      <div class="md:w-6/12 md:ml-4">
+        <div class="md:w-10/12 divText ">
+          <h2 class="text-3xl font-bold text-green-600">
+            Título del Texto
+          </h2>
+          <p class="text-gray-600">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod turpis et urna consequat,
+            vitae eleifend lorem dapibus. Nullam nec nisl eu purus tincidunt cursus.Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit. Quisque euismod turpis et urna consequat,
+            vitae eleifend lorem dapibus. Nullam nec nisl eu purus tincidunt cursus.Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit. Quisque euismod turpis et urna consequat,
+            vitae eleifend lorem dapibus. Nullam nec nisl eu purus tincidunt cursus.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <!-- Tarjetas -->
+  <section th:fragment="tarjetas" class="p-8 bg-green-200 lg:flex align-content-center items-start flex-wrap mx-auto">
+    <div class="container">
+      <div class="row align-content-center">
+
+        <!-- Tarjeta 1 -->
+        <div class="col-md-4">
+          <div class="card text-center mx-auto">
+            <img th:src="@{/img/corazon.png}" title="healthcare icons"
+              class="card-img-top align-content-center mx-auto d-block impng" alt="bienestar" />
+            <div class="card-body">
+              <h5 class="card-title">Nuestra pasion es la Excelencia</h5>
+              <p class="card-text">Siempre en la busqueda de poder brindarte el mejor servicio.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta 2 -->
+        <div class="col-md-4">
+          <div class="card text-center mx-auto">
+            <img th:src="@{/img/medico.png}" class="card-img-top align-content-center mx-auto d-block"
+              alt="Imagen 2">
+            <div class="card-body">
+              <h5 class="card-title"> Gran cantidad de Especializaciones</h5>
+              <p class="card-text"> Podras encontrar a tu profesional medico con nosotros.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta 3 -->
+        <div class="col-md-4">
+          <div class="card text-center mx-auto">
+            <img th:src="@{/Img/tick.png}" class="card-img-top align-content-center mx-auto d-block "
+              alt="Imagen 3">
+            <div class="card-body">
+              <h5 class="card-title">Podes confiar en Nosotros</h5>
+              <p class="card-text">Nuestro profesionales estan en constante preparacion y evaluacion.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <footer th:replace="/fragments/footer :: footer"></footer>
+</body>
+
 </html>
